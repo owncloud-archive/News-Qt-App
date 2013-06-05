@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<qnx xmlns="http://www.qnx.com/schemas/application/1.0">
+    <id>uk.co.piggz.ownCloudNews</id>
+    <name>own News</name>
+    <versionNumber>0.0.1</versionNumber>
+    <description>ownCloud News Reader</description>
+    <initialWindow>
+        <aspectRatio>portrait</aspectRatio>
+        <autoOrients>false</autoOrients>
+        <systemChrome>none</systemChrome>
+        <transparent>false</transparent>
+    </initialWindow>
+    <env value="app/native/lib:/usr/lib/qt4/lib/" var="LD_LIBRARY_PATH"/>
+    <action system="true">run_native</action>
+    <asset path="ownCloudNews" type="Qnx/Elf" entry="true">ownCloudNews</asset>
+    <asset path="%SRC_DIR%/assets">assets</asset>
+    <authorId>gYAAgGX8zmDTZSzKxsbFMxvmgTU</authorId>
+    <author>PGZ Solutions</author>
+    <buildId>1</buildId>
+</qnx>
