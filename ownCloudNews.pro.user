@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 2.7.82, 2013-06-04T22:02:04. -->
+<!-- Written by QtCreator 2.7.82, 2013-06-06T22:18:17. -->
 <qtcreator>
  <data>
   <variable>ProjectExplorer.Project.ActiveTarget</variable>
@@ -205,7 +205,7 @@
      <valuemap type="QVariantMap" key="Qnx.BlackBerry.DeployInformation.0">
       <value type="QString" key="Qnx.BlackBerry.DeployInformation.AppDescriptor">/home/piggz/projects/ownCloudNews/bar-descriptor.xml</value>
       <value type="bool" key="Qnx.BlackBerry.DeployInformation.Enabled">true</value>
-      <value type="QString" key="Qnx.BlackBerry.DeployInformation.Package">/home/piggz/projects/build/build-ownCloudNews-BB10_1_Qt-Debug/ownCloudNews.bar</value>
+      <value type="QString" key="Qnx.BlackBerry.DeployInformation.Package">/home/piggz/projects/build/build-ownCloudNews-BB10_1_Qt-Release/ownCloudNews.bar</value>
       <value type="QString" key="Qnx.BlackBerry.DeployInformation.ProFile">/home/piggz/projects/ownCloudNews/ownCloudNews.pro</value>
       <value type="QString" key="Qnx.BlackBerry.DeployInformation.Source"></value>
       <value type="QString" key="Qnx.BlackBerry.DeployInformation.Target"></value>

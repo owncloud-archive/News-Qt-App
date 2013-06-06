@@ -47,7 +47,6 @@ void ItemsModel::parseItems(const QByteArray &json)
     m_items.clear();
     foreach(QVariant item, items) {
         QVariantMap map = item.toMap();
-        qDebug() << "item:" << map;
         addItem(map["id"].toInt(), map["feedId"].toInt(), map["title"].toString(), map["body"].toString(),map["url"].toString(),map["author"].toString());
     }
 
@@ -141,7 +140,6 @@ void ItemsModel::addItem(int id, int feedid, const QString &title, const QString
             item["link"] = link;
             item["author"] = author;
             m_items << item;
-            qDebug() << item;
         }
     }
 }

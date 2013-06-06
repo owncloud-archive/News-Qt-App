@@ -14,8 +14,9 @@ Page {
 
     actions: [
             ActionItem {
+                id: actionSync
                 title: "Sync"
-                onTriggered: NewsInterface.sync()
+                onTriggered: NewsInterface.sync(ownCloudURL, username, password)
                 ActionBar.placement: ActionBarPlacement.OnBar
                 enabled: !NewsInterface.busy
             }
@@ -28,6 +29,7 @@ Page {
                 id: myIndicator
                 preferredWidth: 100
                 running: NewsInterface.busy
+                visible: NewsInterface.busy
             }
 
         ListView {
@@ -62,6 +64,12 @@ Page {
                     itemPage = itemPageDefinition.createObject();
                 }
                 return itemPage;
+            }
+
+            function busyChanged(busy) {
+                console.log("Busy Changed");
+                myIndicater.running = busy;
+                actionSync.enabled = !busy;
             }
 
             attachedObjects: [

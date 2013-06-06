@@ -5,6 +5,7 @@
 #include "abstractitemmodel.h"
 #include "feedsmodel.h"
 #include "itemsmodel.h"
+#include "newsinterface.h"
 
 Q_DECL_EXPORT int main(int argc, char **argv)
 {
@@ -17,6 +18,7 @@ Q_DECL_EXPORT int main(int argc, char **argv)
     qmlRegisterType<AbstractItemModel>("com.kdab.components", 1, 0, "AbstractItemModel");
     qmlRegisterType<FeedsModel>("uk.co.piggz", 1, 0, "FeedsModel");
     qmlRegisterType<ItemsModel>("uk.co.piggz", 1, 0, "ItemsModel");
+    //qmlRegisterType<NewsInterface>("uk.co.piggz", 1, 0, "NewsInterface");
 
     new ownCloudNews(&app);
     

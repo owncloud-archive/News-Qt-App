@@ -53,7 +53,6 @@ void FeedsModel::addFeed(int id, const QString &title, const QString &url, const
             feed["url"] = url;
             feed["icon"] = icon;
             m_feeds << feed;
-            qDebug() << feed;
         }
     }
 }
@@ -119,7 +118,6 @@ void FeedsModel::parseFeeds(const QByteArray &json)
     m_feeds.clear();
     foreach(QVariant feed, feeds) {
         QVariantMap map = feed.toMap();
-        qDebug() << "feed:" << map;
         addFeed(map["id"].toInt(), map["title"].toString(), map["url"].toString(), map["faviconLink"].toString());
     }
 

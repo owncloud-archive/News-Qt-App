@@ -14,27 +14,30 @@ class QAuthenticator;
 class NewsInterface : public QObject
 {
     Q_OBJECT
-public:
-    explicit NewsInterface(QObject *parent = 0);
     Q_PROPERTY(FeedsModel* feedsModel READ feedsModel CONSTANT)
     Q_PROPERTY(ItemsModel* itemsModel READ itemsModel CONSTANT)
-    Q_PROPERTY(bool busy READ isBusy)
+    Q_PROPERTY(bool busy READ isBusy NOTIFY busyChanged)
 
-public slots:
-    void sync(const QString &url, const QString& username, const QString &password);
-    void viewItems(int feedId);
+
+public:
+    explicit NewsInterface(QObject *parent = 0);
+
+    bool isBusy();
+    FeedsModel *feedsModel() const;
+    ItemsModel* itemsModel() const;
+
+    Q_INVOKABLE void sync(const QString &url, const QString& username, const QString &password);
+    Q_INVOKABLE void viewItems(int feedId);
 
 signals:
+    void busyChanged(bool busy);
 
 private:
     QNetworkAccessManager *m_networkManager;
     QSqlDatabase m_db;
 
     FeedsModel *m_feedsModel;
-    FeedsModel *feedsModel() const;
-
-    ItemsModel* m_itemsModel;
-    ItemsModel* itemsModel() const;
+    ItemsModel* m_itemsModel;   
 
     static const QString rootPath;
     static const QString format;
@@ -45,7 +48,6 @@ private:
     QString m_password;
 
     bool m_busy;
-    bool isBusy();
 
     QList<int> m_feedsToSync;
 

@@ -14,6 +14,8 @@ NewsInterface::NewsInterface(QObject *parent) : QObject(parent)
 {
     m_networkManager = new QNetworkAccessManager();
 
+    m_busy = false;
+
     feedsPath = rootPath + "feeds";
     itemsPath = rootPath + "items";
 
@@ -52,6 +54,7 @@ void NewsInterface::slotReplyFinished(QNetworkReply* reply)
     qDebug() << "Reply from " << reply->url().path();
 
     m_busy = false;
+    emit(busyChanged(m_busy));
 
     if (reply->url().path().endsWith(feedsPath))
     {
@@ -75,6 +78,8 @@ void NewsInterface::getFeeds()
 {
     if (!m_busy) {
         m_busy = true;
+        emit(busyChanged(m_busy));
+
         QUrl url(serverPath + feedsPath);
         url.addQueryItem("format", format);
 
@@ -87,6 +92,8 @@ void NewsInterface::getItems(int feedId)
 {
     if (!m_busy) {
         m_busy = true;
+        emit(busyChanged(m_busy));
+
         qDebug() << "Getting items for feed " << feedId;
         QUrl url(serverPath + itemsPath);
         url.addQueryItem("id", QString::number(feedId));
