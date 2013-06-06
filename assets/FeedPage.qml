@@ -23,13 +23,15 @@ Page {
         ]
 
     Container {
-      //  layout: DockLayout {}
+        layout: DockLayout {}
 
         ActivityIndicator {
                 id: myIndicator
-                preferredWidth: 100
+                preferredWidth: 250
                 running: NewsInterface.busy
                 visible: NewsInterface.busy
+                horizontalAlignment: HorizontalAlignment.Center
+                verticalAlignment: VerticalAlignment.Center
             }
 
         ListView {
@@ -57,6 +59,7 @@ Page {
                 navigationPane.push(page);
             }
 
+
             property Page itemPage
 
             function getItemPage() {
@@ -82,6 +85,7 @@ Page {
 
                     sourceModel: NewsInterface.feedsModel
                 }
+
             ]
         }
 
