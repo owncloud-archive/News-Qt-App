@@ -1,7 +1,9 @@
 import bb.cascades 1.0
+import com.kdab.components 1.0
+import uk.co.piggz 1.0
 
-Container {
-    id: listItemContainer
+Page {
+    id: itemView
     property string title: ""
     property string body: ""
     property string link: ""
@@ -10,14 +12,20 @@ Container {
     property bool unread: false
     property bool starred: false
 
-    leftPadding: 30
-    rightPadding:30
-    topPadding: 15
-    bottomPadding: 15
-
-    background: listItemContainer.ListItem.active ? Color.create("#18AFE2") : Color.create("#018AFE2")
+    paneProperties: NavigationPaneProperties {
+        backButton: ActionItem {
+            onTriggered: {
+                navigationPane.pop()
+            }
+        }
+    }
 
     Container {
+
+        leftPadding: 30
+        rightPadding:30
+        topPadding: 15
+        bottomPadding: 15
 
         Label {
             id: lblTitle
@@ -68,9 +76,6 @@ Container {
         Label {
             id: lblBody
             multiline: true
-            autoSize {
-                maxLineCount: 3
-            }
 
             text: body
 
@@ -81,25 +86,7 @@ Container {
             }
 
         }
-        /*
-        WebView {
-            id: bodyHtml
-            //multiline: true
-            html: "<html>" + body + "</html>"
-
-            layoutProperties: StackLayoutProperties {
-                spaceQuota: 1
-            }
-
-            textStyle {
-                base: SystemDefaults.TextStyles.BodyText
-                color: Color.DarkGray
-                textAlign: TextAlign.Left
-            }
-
-        }*/
-
     }
-
-
 }
+
+

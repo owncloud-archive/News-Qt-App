@@ -4,6 +4,7 @@
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QDateTime>
+#include <QTextDocument>
 
 ItemsModel::ItemsModel(QObject *parent) : QAbstractListModel(parent)
 {
@@ -90,12 +91,21 @@ void ItemsModel::setFeed(int feedId)
         } else {
             beginResetModel();
             m_items.clear();
+
+            QTextDocument txt;
+
+
             while (qry.next()) {
                 QVariantMap item;
                 item["id"] = qry.value(0).toInt();
                 item["feedid"] = qry.value(1).toInt();
-                item["title"] = qry.value(2).toString();
-                item["body"] = qry.value(3).toString();
+
+                txt.setHtml(qry.value(2).toString());
+                item["title"] = txt.toPlainText().trimmed();
+
+                txt.setHtml(qry.value(3).toString());
+                item["body"] = txt.toPlainText().trimmed();
+
                 item["link"] = qry.value(4).toString();
                 item["author"] = qry.value(5).toString();
                 item["pubdate"] = QDateTime::fromTime_t(qry.value(6).toUInt());

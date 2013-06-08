@@ -33,8 +33,37 @@ Page {
                 }
             ]
 
+            onTriggered: {
+                var selectedItem = dataModel.data(indexPath);
+                console.log (selectedItem.itemtitle);
+
+                var page = getItemViewPage();
+                navigationPane.push(page);
+
+                page.title = selectedItem.itemtitle;
+                page.body = selectedItem.itembody;
+                page.link = selectedItem.itemlink;
+                page.author = selectedItem.itemauthor;
+                page.pubdate = selectedItem.itempubdate;
+                page.unread = selectedItem.itemunread;
+                page.starred = selectedItem.itemstarred;
+            }
+
+
+            property Page itemViewPage
+
+            function getItemViewPage() {
+                if (! itemViewPage) {
+                    itemViewPage = itemPageDefinition.createObject();
+                }
+                return itemViewPage;
+            }
 
             attachedObjects: [
+                ComponentDefinition {
+                    id: itemPageDefinition
+                    source: "ItemView.qml"
+                },
                 AbstractItemModel {
                     id: abstractItemsModel
 
@@ -44,6 +73,8 @@ Page {
         }
 
     }
+
+
 }
 
 

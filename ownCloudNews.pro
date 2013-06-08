@@ -27,7 +27,8 @@ OTHER_FILES += bar-descriptor.xml \
     assets/FeedPage.qml \
     assets/ItemPage.qml \
     assets/NewsItem.qml \
-    assets/AdvancedPage.qml
+    assets/AdvancedPage.qml \
+    assets/ItemView.qml
 
 
 
