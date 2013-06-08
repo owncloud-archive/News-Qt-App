@@ -1,0 +1,45 @@
+A Blackberry 10 client to the ownCloud News application
+
+Introduction
+============
+
+From the ashes of Google Reader came the ownCloud news application. owncloud-News provides a great alternative to Google Reader, however I typically
+like to read feeds from my phone. While there are numerous Google Reader mobile clients, there are far fewer for ownCloud, and none (that I know of) for Blackberry 10),
+so I wrote my own!
+
+Features
+========
+
+*Specify ownCloud instance URL
+*News items are downloaded for offline reading
+*Feed List View
+*Item List View
+*Item View
+*Open Item in external browser
+*Share Item using BB10 share framework
+
+
+TODO
+====
+
+*Delete old items
+*UI for other platforms like harmattan and android
+
+Download
+========
+
+Blackberry World (coming)
+Github https://github.com/piggz/ownnews
+Gitorious https://gitorious.org/ownnews/ownnews
+
+Contribute
+==========
+
+Please contribute by fixing bugs, adding features or highlighing issues using Github, Gitorious or emailing me.
+
+Contact
+=======
+
+Email: adam@piggz.co.uk
+Web:   www.piggz.co.uk
+
