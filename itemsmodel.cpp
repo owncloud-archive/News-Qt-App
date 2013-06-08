@@ -5,6 +5,7 @@
 #include <QSqlError>
 #include <QDateTime>
 #include <QTextDocument>
+#include <QRegExp>
 
 ItemsModel::ItemsModel(QObject *parent) : QAbstractListModel(parent)
 {
@@ -94,7 +95,6 @@ void ItemsModel::setFeed(int feedId)
 
             QTextDocument txt;
 
-
             while (qry.next()) {
                 QVariantMap item;
                 item["id"] = qry.value(0).toInt();
@@ -106,13 +106,15 @@ void ItemsModel::setFeed(int feedId)
                 txt.setHtml(qry.value(3).toString());
                 item["body"] = txt.toPlainText().trimmed();
 
+                //item["title"] = qry.value(2).toString().remove(QRegExp("<[^>]*>")).trimmed();
+                //item["body"] = qry.value(3).toString().remove(QRegExp("<[^>]*>")).trimmed();
                 item["link"] = qry.value(4).toString();
                 item["author"] = qry.value(5).toString();
                 item["pubdate"] = QDateTime::fromTime_t(qry.value(6).toUInt());
                 item["unread"] = qry.value(7).toBool();
                 item["starred"] = qry.value(8).toBool();
 
-                qDebug() << item["pubdate"] << qry.value(6).toUInt();
+                qDebug() << item["body"];
 
                 m_items << item;
 

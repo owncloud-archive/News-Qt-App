@@ -1,9 +1,11 @@
 1
-8
+10
 ownNews1024.png
 FeedItem.qml
+ic_world.png
 NewsItem.qml
 AdvancedPage.qml
+ic_share.png
 ItemView.qml
 main.qml
 FeedPage.qml
