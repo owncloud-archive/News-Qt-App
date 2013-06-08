@@ -29,7 +29,6 @@ Page {
                 id: myIndicator
                 preferredWidth: 250
                 running: NewsInterface.busy
-                visible: NewsInterface.busy
                 horizontalAlignment: HorizontalAlignment.Center
                 verticalAlignment: VerticalAlignment.Center
             }

@@ -76,36 +76,66 @@ NavigationPane {
                 inputMode: TextFieldInputMode.Password
             }
 
-            Button {
-
-                text: qsTr("Continue")
-
-                onClicked: {
-                    ownCloudURL = txtOwnCloud.text;
-                    username = txtUsername.text;
-                    password = txtPassword.text;
-
-                    saveSettings();
-
-                    var page = getFeedPage();
-                    navigationPane.push(page);
+            Container {
+                layout: StackLayout {
+                    orientation:  LayoutOrientation.LeftToRight
                 }
 
-                property Page feedPage
+                Button {
 
-                function getFeedPage() {
-                    if (! feedPage) {
-                        feedPage = feedPageDefinition.createObject();
+                    text: qsTr("Continue")
+
+                    onClicked: {
+                        ownCloudURL = txtOwnCloud.text;
+                        username = txtUsername.text;
+                        password = txtPassword.text;
+
+                        saveSettings();
+
+                        var page = getFeedPage();
+                        navigationPane.push(page);
                     }
-                    return feedPage;
+
+                    property Page feedPage
+
+                    function getFeedPage() {
+                        if (! feedPage) {
+                            feedPage = feedPageDefinition.createObject();
+                        }
+                        return feedPage;
+                    }
+
+                    attachedObjects: [
+                        ComponentDefinition {
+                            id: feedPageDefinition
+                            source: "FeedPage.qml"
+                        }
+                    ]
+                }
+                Button {
+                    text: qsTr("Advanced")
+                    onClicked: {
+                        var page = getAdvancedPage();
+                        navigationPane.push(page);
+                    }
+
+                    property Page advancedPage
+
+                    function getAdvancedPage() {
+                        if (! advancedPage) {
+                            advancedPage = advancedPageDefinition.createObject();
+                        }
+                        return advancedPage;
+                    }
+
+                    attachedObjects: [
+                        ComponentDefinition {
+                            id: advancedPageDefinition
+                            source: "AdvancedPage.qml"
+                        }
+                    ]
                 }
 
-                attachedObjects: [
-                    ComponentDefinition {
-                        id: feedPageDefinition
-                        source: "FeedPage.qml"
-                    }
-                ]
             }
         }
     }

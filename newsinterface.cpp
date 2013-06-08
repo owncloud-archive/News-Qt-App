@@ -135,3 +135,8 @@ void NewsInterface::viewItems(int feedId)
 {
     m_itemsModel->setFeed(feedId);
 }
+
+void NewsInterface::recreateDatabase()
+{
+    m_itemsModel->recreateTable();
+}

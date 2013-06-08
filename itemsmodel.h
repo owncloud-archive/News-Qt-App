@@ -17,7 +17,10 @@ public:
         ItemTitle,
         ItemBody,
         ItemLink,
-        ItemAuthor
+        ItemAuthor,
+        ItemPubDate,
+        ItemUnread,
+        ItemStarred
     };
 
     explicit ItemsModel(QObject *parent = 0);
@@ -28,6 +31,7 @@ public:
     void parseItems(const QByteArray& json);
     void setDatabase(QSqlDatabase *db);
     void setFeed(int feedId);
+    void recreateTable();
 
 private:
     QHash<int, QByteArray> roleNames() const;
@@ -36,7 +40,7 @@ private:
 
     QSqlDatabase *m_db;
 
-    void addItem(int id, int feedid, const QString &title, const QString &body, const QString &link, const QString& author);
+    void addItem(int id, int feedid, const QString &title, const QString &body, const QString &link, const QString& author, unsigned int pubdate, bool unread, bool starred);
 };
 
 Q_DECLARE_METATYPE(ItemsModel*);

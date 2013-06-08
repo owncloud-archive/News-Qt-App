@@ -9,9 +9,9 @@ Container {
     leftPadding: 30
     topPadding: 15
     bottomPadding: 15
+    rightPadding: 30
 
     background: listItemContainer.ListItem.active ? Color.create("#18AFE2") : Color.create("#018AFE2")
-
 
     Container {
 

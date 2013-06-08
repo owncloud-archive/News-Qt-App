@@ -24,6 +24,10 @@ Page {
                         title: ListItemData.itemtitle
                         body: ListItemData.itembody
                         link: ListItemData.itemlink
+                        author: ListItemData.itemauthor
+                        pubdate: ListItemData.itempubdate
+                        unread: ListItemData.itemunread
+                        starred: ListItemData.itemstarred
                     }
 
                 }
