@@ -27,6 +27,7 @@ Container {
             textStyle {
                 base: SystemDefaults.TextStyles.TitleText
                 color: Color.Black
+                fontWeight: unread? FontWeight.Bold : FontWeight.Normal
             }
         }
 

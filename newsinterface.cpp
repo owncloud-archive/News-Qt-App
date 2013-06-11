@@ -98,8 +98,10 @@ void NewsInterface::getItems(int feedId)
         QUrl url(serverPath + itemsPath);
         url.addQueryItem("id", QString::number(feedId));
         url.addQueryItem("batchSize", "20");
+        url.addQueryItem("offset", "0");
         url.addQueryItem("type", "0");
         url.addQueryItem("format", format);
+        url.addQueryItem("getRead", "true");
 
         qDebug() << url;
 

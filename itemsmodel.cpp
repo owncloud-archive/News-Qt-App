@@ -83,7 +83,7 @@ void ItemsModel::setFeed(int feedId)
 {
     if (m_db->isOpen()) {
         QSqlQuery qry;
-        qry.prepare("SELECT id, feedid, title, body, link, author, pubdate, unread, starred FROM items WHERE feedid = :fid ORDER BY id DESC");
+        qry.prepare("SELECT id, feedid, title, body, link, author, pubdate, unread, starred FROM items WHERE feedid = :fid ORDER BY pubdate DESC");
         qry.bindValue(":fid", feedId);
 
         bool ret = qry.exec();
@@ -177,13 +177,13 @@ void ItemsModel::addItem(int id, int feedid, const QString &title, const QString
         qry.bindValue(":unread", unread);
         qry.bindValue(":starred", starred);
 
-        qDebug() << "Adding item with date: " << pubdate;
+        qDebug() << "Adding item " << feedid << title << pubdate;
 
         bool ret = qry.exec();
         if(!ret)
             qDebug() << qry.lastError();
-        else {
-            qDebug() << "item inserted!";
+//        else {
+//            qDebug() << "item inserted!";
             //TODO
 #if 0
             QVariantMap item;
@@ -199,6 +199,6 @@ void ItemsModel::addItem(int id, int feedid, const QString &title, const QString
 
             m_items << item;
 #endif
-        }
+//        }
     }
 }
