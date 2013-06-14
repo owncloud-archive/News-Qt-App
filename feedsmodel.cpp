@@ -109,7 +109,9 @@ void FeedsModel::parseFeeds(const QByteArray &json)
     bb::data::JsonDataAccess jda;
     QVariant data = jda.loadFromBuffer(json);
 
-    QList<QVariant> feeds = data.toMap()["ocs"].toMap()["data"].toMap()["feeds"].toList();
+    //OLD API QList<QVariant> feeds = data.toMap()["ocs"].toMap()["data"].toMap()["feeds"].toList();
+    qDebug() << json;
+    QList<QVariant> feeds = data.toMap()["feeds"].toList();
 
     qDebug() << "Feed Count" << feeds.length();
 

@@ -7,7 +7,8 @@
 #include <bb/data/JsonDataAccess>
 
 
-const QString NewsInterface::rootPath = "/ocs/v1.php/apps/news/";
+//const QString NewsInterface::rootPath = "/ocs/v1.php/apps/news/";
+const QString NewsInterface::rootPath = "/index.php/apps/news/api/v1-2/";
 const QString NewsInterface::format = "json";
 
 NewsInterface::NewsInterface(QObject *parent) : QObject(parent)
@@ -81,7 +82,11 @@ void NewsInterface::getFeeds()
         emit(busyChanged(m_busy));
 
         QUrl url(serverPath + feedsPath);
-        url.addQueryItem("format", format);
+        url.setUserName(m_username);
+        url.setPassword(m_password);
+       // url.addQueryItem("format", format);
+
+        qDebug() << url;
 
         m_networkManager->get(QNetworkRequest(url));
 
@@ -96,6 +101,8 @@ void NewsInterface::getItems(int feedId)
 
         qDebug() << "Getting items for feed " << feedId;
         QUrl url(serverPath + itemsPath);
+        url.setUserName(m_username);
+        url.setPassword(m_password);
         url.addQueryItem("id", QString::number(feedId));
         url.addQueryItem("batchSize", "20");
         url.addQueryItem("offset", "0");

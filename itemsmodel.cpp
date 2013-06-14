@@ -49,7 +49,8 @@ void ItemsModel::parseItems(const QByteArray &json)
     bb::data::JsonDataAccess jda;
     QVariant data = jda.loadFromBuffer(json);
 
-    QList<QVariant> items = data.toMap()["ocs"].toMap()["data"].toMap()["items"].toList();
+    //OLD API QList<QVariant> items = data.toMap()["ocs"].toMap()["data"].toMap()["items"].toList();
+    QList<QVariant> items = data.toMap()["items"].toList();
 
     qDebug() << "Item Count" << items.length();
 
