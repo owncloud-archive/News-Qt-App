@@ -1,0 +1,14 @@
+<RCC>
+    <qresource prefix="/">
+        <file>assets/ic_share.png</file>
+        <file>assets/ownNews1024.png</file>
+        <file>assets/ic_world.png</file>
+        <file>assets/simple/PGZButton.qml</file>
+        <file>assets/simple/main.qml</file>
+        <file>assets/simple/Intro.qml</file>
+        <file>assets/simple/Feeds.qml</file>
+        <file>assets/simple/PGZInput.qml</file>
+        <file>assets/simple/PGZBusy.qml</file>
+        <file>assets/simple/Items.qml</file>
+    </qresource>
+</RCC>

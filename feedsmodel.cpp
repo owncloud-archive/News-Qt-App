@@ -1,8 +1,13 @@
 #include "feedsmodel.h"
-#include <bb/data/JsonDataAccess>
 #include <QSqlDatabase>
 #include <QSqlQuery>
 #include <QSqlError>
+#include <QDebug>
+#ifdef Q_OS_BLACKBERRY
+#include <bb/data/JsonDataAccess>
+#else
+#include <qjson/parser.h>
+#endif
 
 FeedsModel::FeedsModel(QObject *parent) :
     QAbstractListModel(parent)
@@ -60,6 +65,7 @@ void FeedsModel::addFeed(int id, const QString &title, const QString &url, const
 void FeedsModel::loadData()
 {
     if (m_db->isOpen()) {
+        qDebug() << "Loading feed data";
         QSqlQuery qry;
         qry.prepare("SELECT id, title, url, icon FROM feeds");
 
@@ -106,8 +112,14 @@ int FeedsModel::rowCount(const QModelIndex &parent) const
 
 void FeedsModel::parseFeeds(const QByteArray &json)
 {
+#ifdef Q_OS_BLACKBERRY
     bb::data::JsonDataAccess jda;
     QVariant data = jda.loadFromBuffer(json);
+#else
+    QJson::Parser parser;
+    bool ok;
+    QVariant data = parser.parse (json, &ok);
+#endif
 
     //OLD API QList<QVariant> feeds = data.toMap()["ocs"].toMap()["data"].toMap()["feeds"].toList();
     qDebug() << json;

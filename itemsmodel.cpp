@@ -1,11 +1,17 @@
 #include "itemsmodel.h"
-#include <bb/data/JsonDataAccess>
 #include <QSqlDatabase>
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QDateTime>
 #include <QTextDocument>
 #include <QRegExp>
+#include <QDebug>
+
+#ifdef Q_OS_BLACKBERRY
+#include <bb/data/JsonDataAccess>
+#else
+#include <qjson/parser.h>
+#endif
 
 ItemsModel::ItemsModel(QObject *parent) : QAbstractListModel(parent)
 {
@@ -46,8 +52,14 @@ int ItemsModel::rowCount(const QModelIndex &parent) const
 
 void ItemsModel::parseItems(const QByteArray &json)
 {
+#ifdef Q_OS_BLACKBERRY
     bb::data::JsonDataAccess jda;
     QVariant data = jda.loadFromBuffer(json);
+#else
+    QJson::Parser parser;
+    bool ok;
+    QVariant data = parser.parse (json, &ok);
+#endif
 
     //OLD API QList<QVariant> items = data.toMap()["ocs"].toMap()["data"].toMap()["items"].toList();
     QList<QVariant> items = data.toMap()["items"].toList();

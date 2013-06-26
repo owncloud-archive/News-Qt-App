@@ -4,8 +4,6 @@
 #include <QNetworkReply>
 #include <QAuthenticator>
 #include <QDebug>
-#include <bb/data/JsonDataAccess>
-
 
 //const QString NewsInterface::rootPath = "/ocs/v1.php/apps/news/";
 const QString NewsInterface::rootPath = "/index.php/apps/news/api/v1-2/";
@@ -24,7 +22,11 @@ NewsInterface::NewsInterface(QObject *parent) : QObject(parent)
     connect(m_networkManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(slotReplyFinished(QNetworkReply*)));
 
     m_db = QSqlDatabase::addDatabase("QSQLITE");
+#ifdef Q_OS_BLACKBERRY
     m_db.setDatabaseName("data/ownnews.sqlite");
+#else
+    m_db.setDatabaseName("ownnews.sqlite");
+#endif
 
     m_db.open(); //TODO error checking
 

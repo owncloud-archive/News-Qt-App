@@ -15,7 +15,7 @@ Container {
     topPadding: 15
     bottomPadding: 15
 
-    background: listItemContainer.ListItem.active ? Color.create("#18AFE2") : Color.create("#018AFE2")
+    background: listItemContainer.ListItem.active ? Color.create("#18AFE2") : back.imagePaint
 
     Container {
 
@@ -101,6 +101,12 @@ Container {
         }*/
 
     }
-
+    attachedObjects: [
+            ImagePaintDefinition {
+                id: back
+                imageSource: "asset:///gradient.png"
+                repeatPattern: RepeatPattern.X
+            }
+        ]
 
 }
