@@ -55,6 +55,7 @@ Rectangle {
             id: inpPassword
             width: parent.width
             height: 40
+            password: true
         }
 
     }

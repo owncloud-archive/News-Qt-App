@@ -6,6 +6,7 @@ Item {
     property color fillColor: "#cccccc"
     property int fontSize: 20
     property alias  text: input.text
+    property bool password: false
 
     Rectangle {
         anchors.centerIn: parent
@@ -22,6 +23,7 @@ Item {
             color: "#444444"
             horizontalAlignment: Text.AlignHCenter
             anchors.verticalCenter: parent.verticalCenter
+            echoMode: password ? TextInput.Password : TextInput.Normal
         }
     }
 

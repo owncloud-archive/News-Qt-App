@@ -38,7 +38,8 @@ OTHER_FILES += bar-descriptor.xml \
     assets/simple/Feeds.qml \
     assets/simple/PGZInput.qml \
     assets/simple/PGZBusy.qml \
-    assets/simple/Items.qml
+    assets/simple/Items.qml \
+    assets/simple/ItemView.qml
 
 blackberry{
     LIBS += -lbbdata -lbb -lbbcascades

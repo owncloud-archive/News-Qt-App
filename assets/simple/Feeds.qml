@@ -20,7 +20,7 @@ Rectangle {
             height: 64
 
             gradient: Gradient {
-                     GradientStop { position: 0.0; color: "#eeeeee" }
+                     GradientStop { position: 0.0; color: "#dddddd" }
                      GradientStop { position: 0.33; color: "#ffffff" }
                  }
 
@@ -76,7 +76,7 @@ Rectangle {
                         id: txtLink
                         text: feedurl
                         font.pointSize: 12
-                        color: "#999999"
+                        color: "#888888"
                         anchors.right: parent.right
 
 

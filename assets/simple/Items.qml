@@ -2,7 +2,7 @@ import QtQuick 1.1
 
 Rectangle {
     signal backClicked();
-    signal itemClicked(int itemId);
+    signal itemClicked(int itemId, string itemTitle, string itemBody, bool itemUnread, bool itemStarred, string itemAuthor, string itemPubDate);
 
     PGZBusy {
         anchors.centerIn: parent
@@ -20,7 +20,7 @@ Rectangle {
             height: 128
 
             gradient: Gradient {
-                GradientStop { position: 0.0; color: "#eeeeee" }
+                GradientStop { position: 0.0; color: "#dddddd" }
                 GradientStop { position: 0.33; color: "#ffffff" }
             }
 
@@ -28,7 +28,7 @@ Rectangle {
                 anchors.fill: parent
 
                 onClicked: {
-                    itemClicked(itemid);
+                    itemClicked(itemid, itemtitle, itembody, itemunread, itemstarred, itemauthor, itempubdate);
                 }
             }
 
@@ -53,7 +53,7 @@ Rectangle {
                     id: txtBody
                     text: itembody
                     font.pointSize: 12
-                    color: "#999999"
+                    color: "#888888"
                     maximumLineCount: 3
                     wrapMode: Text.Wrap
                     anchors.left: parent.left

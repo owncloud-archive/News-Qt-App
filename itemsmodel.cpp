@@ -190,7 +190,7 @@ void ItemsModel::addItem(int id, int feedid, const QString &title, const QString
         qry.bindValue(":unread", unread);
         qry.bindValue(":starred", starred);
 
-        qDebug() << "Adding item " << feedid << title << pubdate;
+//        qDebug() << "Adding item " << feedid << title << pubdate;
 
         bool ret = qry.exec();
         if(!ret)

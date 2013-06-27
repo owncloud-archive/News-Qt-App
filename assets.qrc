@@ -10,5 +10,6 @@
         <file>assets/simple/PGZInput.qml</file>
         <file>assets/simple/PGZBusy.qml</file>
         <file>assets/simple/Items.qml</file>
+        <file>assets/simple/ItemView.qml</file>
     </qresource>
 </RCC>
