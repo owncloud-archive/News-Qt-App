@@ -214,8 +214,6 @@ AbstractItemModel::AbstractItemModel(QObject *parent)
     : bb::cascades::DataModel(parent)
     , d(new Private(this))
 {
-    qDebug() << "============Creating abstract model";
-
 }
 
 AbstractItemModel::~AbstractItemModel()
@@ -225,14 +223,11 @@ AbstractItemModel::~AbstractItemModel()
 
 QAbstractItemModel* AbstractItemModel::sourceModel() const
 {
-    qDebug() << "============Returning source model";
     return d->m_sourceModel;
 }
 
 void AbstractItemModel::setSourceModel(QAbstractItemModel *sourceModel)
 {
-    qDebug() << "============Setting source model";
-
     if (d->m_sourceModel == sourceModel)
         return;
 

@@ -3,12 +3,7 @@
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QDebug>
-#ifdef Q_OS_BLACKBERRY
-#include <bb/data/JsonDataAccess>
-#else
-//#include <qjson/parser.h>
 #include "json.h"
-#endif
 
 FeedsModel::FeedsModel(QObject *parent) :
     QAbstractListModel(parent)
@@ -113,15 +108,8 @@ int FeedsModel::rowCount(const QModelIndex &parent) const
 
 void FeedsModel::parseFeeds(const QByteArray &json)
 {
-#ifdef Q_OS_BLACKBERRY
-    bb::data::JsonDataAccess jda;
-    QVariant data = jda.loadFromBuffer(json);
-#else
-    //QJson::Parser parser;
     bool ok;
-    //QVariant data = parser.parse (json, &ok);
     QVariant data = QtJson::parse(json, ok);
-#endif
 
     //OLD API QList<QVariant> feeds = data.toMap()["ocs"].toMap()["data"].toMap()["feeds"].toList();
     qDebug() << json;

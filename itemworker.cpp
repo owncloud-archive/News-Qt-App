@@ -4,15 +4,8 @@
 #include <QSqlDatabase>
 #include <QSqlQuery>
 #include <QSqlError>
-
 #include <QDebug>
-
-#ifdef Q_OS_BLACKBERRY
-#include <bb/data/JsonDataAccess>
-#else
-//#include <qjson/parser.h>
 #include "json.h"
-#endif
 
 
 ItemWorker::ItemWorker(QSqlDatabase *db, const QByteArray &json, QObject *parent) :
@@ -31,16 +24,8 @@ void ItemWorker::process()
 
 void ItemWorker::parseItems()
 {
-#ifdef Q_OS_BLACKBERRY
-    bb::data::JsonDataAccess jda;
-    QVariant data = jda.loadFromBuffer(m_json);
-#else
-//    QJson::Parser parser;
     bool ok;
-//    QVariant data = parser.parse (m_json, &ok);
     QVariant data = QtJson::parse(m_json, ok);
-
-#endif
 
     //OLD API QList<QVariant> items = data.toMap()["ocs"].toMap()["data"].toMap()["items"].toList();
     QList<QVariant> items = data.toMap()["items"].toList();

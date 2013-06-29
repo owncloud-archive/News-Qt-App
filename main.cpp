@@ -30,7 +30,7 @@ Q_DECL_EXPORT int main(int argc, char **argv)
     QCoreApplication::setApplicationName("pgz-ownNews");
 
 #ifdef Q_OS_BLACKBERRY
-    qDebug() << "Registering AbstractitemModel with QML";
+    qmlRegisterType<QAbstractItemModel>();
     qmlRegisterType<AbstractItemModel>("com.kdab.components", 1, 0, "AbstractItemModel");
 #endif
     qmlRegisterType<FeedsModel>("uk.co.piggz", 1, 0, "FeedsModel");
