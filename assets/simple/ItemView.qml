@@ -13,6 +13,7 @@ Rectangle {
 
 
     Flickable {
+
         anchors.top: parent.top
         anchors.bottom: btnBack.top
         anchors.left: parent.left
@@ -22,29 +23,52 @@ Rectangle {
         flickableDirection: Flickable.VerticalFlick
         clip: true
 
-        Column {
-            anchors.fill: parent
-            anchors.margins: 5
-            spacing: 10
+        contentHeight: itemContent.height + 50
+
+        Rectangle {
+            width: parent.width
+            height: 256
+
+            gradient: Gradient {
+                GradientStop { position: 0.0; color: "#dddddd" }
+                GradientStop { position: 0.33; color: "#ffffff" }
+            }
+        }
+
+        Item {
+            id: itemContent
+            width: parent.width
+            height: childrenRect.height
+
 
             Text {
                 id: txtTitle
                 text: title
                 font.pointSize: 14
-                font.bold: itemunread
+                font.bold: unread
                 wrapMode: Text.Wrap
                 anchors.left: parent.left
                 anchors.right: parent.right
+                anchors.top: parent.top
+                anchors.margins: 5
             }
 
-            Row {
-                spacing: 10
+            Item {
+                id: titleRow
                 anchors.left: parent.left
                 anchors.right: parent.right
+                anchors.top: txtTitle.bottom
+
+                height: childrenRect.height
+                anchors.margins: 5
                 Text {
                     id: txtAuthor
                     text: author
                     font.pointSize: 12
+                    anchors.left: parent.left
+                    width: parent.width / 3
+                    clip: true
+                    wrapMode: Text.WordWrap
                 }
 
                 Text {
@@ -52,10 +76,15 @@ Rectangle {
                     text: pubdate
                     font.pointSize: 12
                     anchors.right: parent.right
+                    width: parent.width / 3
+                    clip: true
+                    wrapMode: Text.WordWrap
                 }
             }
 
+
             Text {
+
                 id: txtBody
                 text: body
                 font.pointSize: 12
@@ -63,10 +92,11 @@ Rectangle {
                 wrapMode: Text.Wrap
                 anchors.left: parent.left
                 anchors.right: parent.right
+                anchors.top: titleRow.bottom
+                anchors.margins: 5
 
             }
         }
-
 
     }
 

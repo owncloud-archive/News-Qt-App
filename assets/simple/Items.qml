@@ -54,10 +54,11 @@ Rectangle {
                     text: itembody
                     font.pointSize: 12
                     color: "#888888"
-                    maximumLineCount: 3
                     wrapMode: Text.Wrap
                     anchors.left: parent.left
                     anchors.right: parent.right
+                    clip: true
+                    maximumLineCount: 3
 
 
                 }

@@ -9,60 +9,81 @@ Rectangle {
     property alias username: inpUsername.text
     property alias password: inpPassword.text
 
-    Image {
-        id: imgLogo
-        source: "../ownNews1024.png"
-        width: parent.width - 10
-        height: width * (sourceSize.height / sourceSize.width)
-        x: 5
-        y: 5
-        fillMode: Image.PreserveAspectFit
-    }
+    property bool landscape: (height < width)
 
-    Column {
-        anchors.topMargin: 40
-        anchors.top: imgLogo.bottom
+    Flickable {
+        anchors.top: parent.top
         anchors.left: parent.left
         anchors.right: parent.right
-        anchors.margins: 10
+        anchors.bottom: btnContinue.top
 
-        Text {
-            text: "ownCloud URL:"
-            font.pixelSize: 30
-        }
+        flickableDirection: Flickable.VerticalFlick
+        clip: true
 
-        PGZInput {
-            id: inpOwnCloudUrl
-            width: parent.width
-            height: 40
-        }
-        Text {
-            text: "Username:"
-            font.pixelSize: 30
+        Image {
+            id: imgLogo
+            source: "../ownNews1024.png"
+            width: landscape ?  parent.width / 2 - 10 : parent.width - 10
+            height: width * (sourceSize.height / sourceSize.width)
+            x: 5
+            y: 5
+            fillMode: Image.PreserveAspectFit
         }
 
-        PGZInput {
-            id: inpUsername
-            width: parent.width
-            height: 40
-        }
-        Text {
-            text: "Password:"
-            font.pixelSize: 30
-        }
+        Column {
+            anchors.topMargin: 40
+            anchors.top: landscape ? imgLogo.top : imgLogo.bottom
+            anchors.left: landscape ? imgLogo.right : parent.left
+            anchors.right: parent.right
+            anchors.margins: 10
+            spacing: 10
 
-        PGZInput {
-            id: inpPassword
-            width: parent.width
-            height: 40
-            password: true
+            Text {
+                text: "ownCloud URL:"
+                font.pointSize: 12
+                font.bold: true
+            }
+
+            PGZInput {
+                id: inpOwnCloudUrl
+                width: parent.width
+                fontSize: 12
+
+            }
+            Text {
+                text: "Username:"
+                font.pointSize: 12
+                font.bold: true
+            }
+
+            PGZInput {
+                id: inpUsername
+                width: parent.width
+                fontSize: 12
+            }
+
+            Text {
+                text: "Password:"
+                font.pointSize: 12
+                font.bold: true
+            }
+
+            PGZInput {
+                id: inpPassword
+                width: parent.width
+                height: 40
+                password: true
+                fontSize: 14
+            }
+
         }
 
     }
 
     PGZButton {
+        id: btnContinue
         anchors.bottom: parent.bottom
-        anchors.left: parent.left
+        anchors.right: parent.right
         anchors.margins: 10
 
         height: 100
@@ -78,7 +99,7 @@ Rectangle {
 
     PGZButton {
         anchors.bottom: parent.bottom
-        anchors.right: parent.right
+        anchors.left: parent.left
         anchors.margins: 10
         buttonText: "Settings"
         height: 100

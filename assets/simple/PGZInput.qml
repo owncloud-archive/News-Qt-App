@@ -8,32 +8,44 @@ Item {
     property alias  text: input.text
     property bool password: false
 
-    Rectangle {
-        anchors.centerIn: parent
-        width: rectPGZButton.width - 10
-        height: rectPGZButton.height - 10
-        color: "white"
-        radius: 7
-        z: 1
+    property int preferredHeight: input.font.pixelSize + 25
 
-        TextInput {
-            id: input
-            anchors.fill: parent
-            font.pixelSize: fontSize
-            color: "#444444"
-            horizontalAlignment: Text.AlignHCenter
-            anchors.verticalCenter: parent.verticalCenter
-            echoMode: password ? TextInput.Password : TextInput.Normal
-        }
+    Component.onCompleted: {
+        height = preferredHeight;
     }
 
     Rectangle {
-        id: rectPGZButton
-        anchors.fill:parent
+        id: rectOuter
         radius: 10
         color: fillColor
         z: 0
+        anchors.fill: parent
 
+
+
+        Rectangle {
+            id:rectInner
+            anchors.fill: parent
+            anchors.margins: 5
+            color: "white"
+            radius: 7
+            z: 1
+
+
+            TextInput {
+                id: input
+                anchors.fill: parent
+                anchors.margins: 5
+                font.pointSize: fontSize
+
+                color: "#444444"
+                horizontalAlignment: Text.AlignHCenter
+                anchors.verticalCenter: parent.verticalCenter
+                echoMode: password ? TextInput.Password : TextInput.Normal
+            }
+        }
     }
+
+
 
 }
