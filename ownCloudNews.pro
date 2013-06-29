@@ -8,8 +8,6 @@ TEMPLATE = app
 
 QT += declarative xml network sql
 
-
-
 # The .cpp file which was generated for your project. Feel free to hack it.
 SOURCES += main.cpp \
     newsinterface.cpp \
@@ -26,6 +24,7 @@ HEADERS += newsinterface.h \
     itemworker.h \
     json.h
 
+blackberry {
 OTHER_FILES += bar-descriptor.xml \
     assets/main.qml \
     assets/FeedItem.qml \
@@ -33,9 +32,11 @@ OTHER_FILES += bar-descriptor.xml \
     assets/ItemPage.qml \
     assets/NewsItem.qml \
     assets/AdvancedPage.qml \
-    assets/ItemView.qml \
-    assets/main-mobile.qml \
-    assets/simple/PGZButton.qml \
+    assets/ItemView.qml
+}
+
+!blackberry {
+    OTHER_FILES += assets/simple/PGZButton.qml \
     assets/simple/main.qml \
     assets/simple/Intro.qml \
     assets/simple/Feeds.qml \
@@ -76,23 +77,21 @@ OTHER_FILES += bar-descriptor.xml \
     android/res/drawable-hdpi/icon.png \
     android/res/drawable-ldpi/icon.png \
     android/res/values/libs.xml
+}
 
 blackberry{
     LIBS += -lbbdata -lbb -lbbcascades
 
-# The .cpp file which was generated for your project. Feel free to hack it.
-SOURCES += ownCloudNews.cpp \
-    abstractitemmodel.cpp
+    # The .cpp file which was generated for your project. Feel free to hack it.
+    SOURCES += ownCloudNews.cpp \
+        abstractitemmodel.cpp
 
-HEADERS += ownCloudNews.hpp \
-    abstractitemmodel.h
+    HEADERS += ownCloudNews.hpp \
+        abstractitemmodel.h
 
 }
 
 !blackberry {
-#    LIBS += -lqjson
-}
-
 RESOURCES += \
     assets.qrc
-
+}

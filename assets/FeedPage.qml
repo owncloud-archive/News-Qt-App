@@ -81,7 +81,6 @@ Page {
                 },
                 AbstractItemModel {
                     id: abstractFeedsModel
-
                     sourceModel: NewsInterface.feedsModel
                 }
 

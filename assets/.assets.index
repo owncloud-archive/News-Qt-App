@@ -1,8 +1,16 @@
 1
-11
+19
 ownNews1024.png
 gradient.png
 FeedItem.qml
+simple/PGZInput.qml
+simple/PGZBusy.qml
+simple/Feeds.qml
+simple/ItemView.qml
+simple/PGZButton.qml
+simple/Items.qml
+simple/main.qml
+simple/Intro.qml
 ic_world.png
 NewsItem.qml
 AdvancedPage.qml
