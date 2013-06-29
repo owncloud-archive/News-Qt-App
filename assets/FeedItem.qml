@@ -57,9 +57,4 @@ Container {
             }
         ]
 
-    /*
-    ImageView {
-        imageSource: "asset:///images/separator_line.png"
-    }
-    */
 }

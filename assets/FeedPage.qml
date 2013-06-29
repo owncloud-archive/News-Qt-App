@@ -25,16 +25,9 @@ Page {
     Container {
         layout: DockLayout {}
 
-        ActivityIndicator {
-                id: myIndicator
-                preferredWidth: 250
-                running: NewsInterface.busy
-                horizontalAlignment: HorizontalAlignment.Center
-                verticalAlignment: VerticalAlignment.Center
-            }
-
         ListView {
             dataModel: abstractFeedsModel
+            enabled: !NewsInterface.busy
 
             listItemComponents: [
                 ListItemComponent {
@@ -86,6 +79,14 @@ Page {
 
             ]
         }
+
+        ActivityIndicator {
+                id: myIndicator
+                preferredWidth: 250
+                running: NewsInterface.busy
+                horizontalAlignment: HorizontalAlignment.Center
+                verticalAlignment: VerticalAlignment.Center
+            }
 
     }
 }

@@ -111,7 +111,6 @@ void FeedsModel::parseFeeds(const QByteArray &json)
     bool ok;
     QVariant data = QtJson::parse(json, ok);
 
-    //OLD API QList<QVariant> feeds = data.toMap()["ocs"].toMap()["data"].toMap()["feeds"].toList();
     qDebug() << json;
     QList<QVariant> feeds = data.toMap()["feeds"].toList();
 
