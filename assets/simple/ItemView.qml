@@ -20,7 +20,7 @@ Rectangle {
         anchors.margins: 10
 
         flickableDirection: Flickable.VerticalFlick
-
+        clip: true
 
         Column {
             anchors.fill: parent

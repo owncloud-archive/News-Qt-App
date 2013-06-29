@@ -33,6 +33,12 @@ public:
     void setFeed(int feedId);
     void recreateTable();
 
+signals:
+    void feedParseComplete();
+
+private slots:
+    void slotWorkerFinished();
+
 private:
     QHash<int, QByteArray> roleNames() const;
 
@@ -40,7 +46,6 @@ private:
 
     QSqlDatabase *m_db;
 
-    void addItem(int id, int feedid, const QString &title, const QString &body, const QString &link, const QString& author, unsigned int pubdate, bool unread, bool starred);
 };
 
 Q_DECLARE_METATYPE(ItemsModel*);

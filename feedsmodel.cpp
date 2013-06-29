@@ -6,7 +6,8 @@
 #ifdef Q_OS_BLACKBERRY
 #include <bb/data/JsonDataAccess>
 #else
-#include <qjson/parser.h>
+//#include <qjson/parser.h>
+#include "json.h"
 #endif
 
 FeedsModel::FeedsModel(QObject *parent) :
@@ -116,9 +117,10 @@ void FeedsModel::parseFeeds(const QByteArray &json)
     bb::data::JsonDataAccess jda;
     QVariant data = jda.loadFromBuffer(json);
 #else
-    QJson::Parser parser;
+    //QJson::Parser parser;
     bool ok;
-    QVariant data = parser.parse (json, &ok);
+    //QVariant data = parser.parse (json, &ok);
+    QVariant data = QtJson::parse(json, ok);
 #endif
 
     //OLD API QList<QVariant> feeds = data.toMap()["ocs"].toMap()["data"].toMap()["feeds"].toList();

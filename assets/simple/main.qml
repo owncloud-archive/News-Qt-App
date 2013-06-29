@@ -145,8 +145,6 @@ Rectangle {
 
         var elapsed = current - previous;
 
-        console.log(current, previous, elapsed);
-
         if (elapsed < msPerMinute) {
              return Math.round(elapsed/1000) + ' seconds ago';
         }

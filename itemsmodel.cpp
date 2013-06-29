@@ -1,4 +1,6 @@
 #include "itemsmodel.h"
+#include "itemworker.h"
+
 #include <QSqlDatabase>
 #include <QSqlQuery>
 #include <QSqlError>
@@ -6,12 +8,7 @@
 #include <QTextDocument>
 #include <QRegExp>
 #include <QDebug>
-
-#ifdef Q_OS_BLACKBERRY
-#include <bb/data/JsonDataAccess>
-#else
-#include <qjson/parser.h>
-#endif
+#include <QThread>
 
 ItemsModel::ItemsModel(QObject *parent) : QAbstractListModel(parent)
 {
@@ -52,28 +49,24 @@ int ItemsModel::rowCount(const QModelIndex &parent) const
 
 void ItemsModel::parseItems(const QByteArray &json)
 {
-#ifdef Q_OS_BLACKBERRY
-    bb::data::JsonDataAccess jda;
-    QVariant data = jda.loadFromBuffer(json);
-#else
-    QJson::Parser parser;
-    bool ok;
-    QVariant data = parser.parse (json, &ok);
-#endif
-
-    //OLD API QList<QVariant> items = data.toMap()["ocs"].toMap()["data"].toMap()["items"].toList();
-    QList<QVariant> items = data.toMap()["items"].toList();
-
-    qDebug() << "Item Count" << items.length();
-
     m_items.clear();
-    foreach(QVariant item, items) {
-        QVariantMap map = item.toMap();
-        addItem(map["id"].toInt(), map["feedId"].toInt(), map["title"].toString(), map["body"].toString(), map["url"].toString(), map["author"].toString(), map["pubDate"].toUInt(), map["unread"].toBool(), map["starred"].toBool());
-    }
 
+    QThread* thread = new QThread;
+    ItemWorker* worker = new ItemWorker(m_db, json);
+    worker->moveToThread(thread);
+    //connect(worker, SIGNAL(error(QString)), this, SLOT(errorString(QString)));
+    connect(thread, SIGNAL(started()), worker, SLOT(process()));
+    connect(worker, SIGNAL(finished()), thread, SLOT(quit()));
+    connect(worker, SIGNAL(finished()), worker, SLOT(deleteLater()));
+    connect(worker, SIGNAL(finished()), this, SLOT(slotWorkerFinished()));
+    connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
+    thread->start();
 }
 
+void ItemsModel::slotWorkerFinished()
+{
+    emit feedParseComplete();
+}
 
 void ItemsModel::setDatabase(QSqlDatabase *db)
 {
@@ -174,44 +167,3 @@ QHash<int, QByteArray> ItemsModel::roleNames() const
     return names;
 }
 
-
-void ItemsModel::addItem(int id, int feedid, const QString &title, const QString &body, const QString &link, const QString& author, unsigned int pubdate, bool unread, bool starred)
-{
-    if (m_db->isOpen()) {
-        QSqlQuery qry;
-        qry.prepare("INSERT OR REPLACE INTO items(id, feedid, title, body, link, author, pubdate, unread, starred) VALUES(:id, :feedid, :title, :body, :link, :author, :pubdate, :unread, :starred)");
-        qry.bindValue(":id", id);
-        qry.bindValue(":feedid", feedid);
-        qry.bindValue(":title", title);
-        qry.bindValue(":body", body);
-        qry.bindValue(":link", link);
-        qry.bindValue(":author", author);
-        qry.bindValue(":pubdate", pubdate);
-        qry.bindValue(":unread", unread);
-        qry.bindValue(":starred", starred);
-
-//        qDebug() << "Adding item " << feedid << title << pubdate;
-
-        bool ret = qry.exec();
-        if(!ret)
-            qDebug() << qry.lastError();
-//        else {
-//            qDebug() << "item inserted!";
-            //TODO
-#if 0
-            QVariantMap item;
-            item["id"] = id;
-            item["feedid"] = feedid;
-            item["title"] = title;
-            item["body"] = body;
-            item["link"] = link;
-            item["author"] = author;
-            item["pubdate"] = QDateTime::fromTime_t(pubdate);
-            item["unread"] = unread;
-            item["starred"] = starred;
-
-            m_items << item;
-#endif
-//        }
-    }
-}

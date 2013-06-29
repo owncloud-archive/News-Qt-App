@@ -59,6 +59,7 @@ private:
 private slots:
     void slotAuthenticationRequired ( QNetworkReply * reply, QAuthenticator * authenticator );
     void slotReplyFinished ( QNetworkReply* );
+    void slotItemProcessFinished();
 };
 
 #endif // NEWSINTERFACE_H

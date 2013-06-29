@@ -35,6 +35,8 @@ NewsInterface::NewsInterface(QObject *parent) : QObject(parent)
 
     m_itemsModel = new ItemsModel(this);
     m_itemsModel->setDatabase(&m_db);
+
+    connect(m_itemsModel, SIGNAL(feedParseComplete()), this, SLOT(slotItemProcessFinished()));
 }
 
 void NewsInterface::sync(const QString &url, const QString& username, const QString &password)
@@ -56,9 +58,6 @@ void NewsInterface::slotReplyFinished(QNetworkReply* reply)
 {
     qDebug() << "Reply from " << reply->url().path();
 
-    m_busy = false;
-    emit(busyChanged(m_busy));
-
     if (reply->url().path().endsWith(feedsPath))
     {
         qDebug() << "Reply from feeds";
@@ -72,9 +71,16 @@ void NewsInterface::slotReplyFinished(QNetworkReply* reply)
     {
         qDebug() << "Reply from items";
         m_itemsModel->parseItems(reply->readAll());
-        syncNextFeed();
         return;
     }
+
+    m_busy = false;
+    emit(busyChanged(m_busy));
+}
+
+void NewsInterface::slotItemProcessFinished()
+{
+    syncNextFeed();
 }
 
 void NewsInterface::getFeeds()
@@ -86,7 +92,6 @@ void NewsInterface::getFeeds()
         QUrl url(serverPath + feedsPath);
         url.setUserName(m_username);
         url.setPassword(m_password);
-       // url.addQueryItem("format", format);
 
         qDebug() << url;
 
@@ -100,30 +105,35 @@ void NewsInterface::getItems(int feedId)
     if (!m_busy) {
         m_busy = true;
         emit(busyChanged(m_busy));
-
-        qDebug() << "Getting items for feed " << feedId;
-        QUrl url(serverPath + itemsPath);
-        url.setUserName(m_username);
-        url.setPassword(m_password);
-        url.addQueryItem("id", QString::number(feedId));
-        url.addQueryItem("batchSize", "20");
-        url.addQueryItem("offset", "0");
-        url.addQueryItem("type", "0");
-        url.addQueryItem("format", format);
-        url.addQueryItem("getRead", "true");
-
-        qDebug() << url;
-
-        m_networkManager->get(QNetworkRequest(url));
     }
+    qDebug() << "Getting items for feed " << feedId;
+    QUrl url(serverPath + itemsPath);
+    url.setUserName(m_username);
+    url.setPassword(m_password);
+    url.addQueryItem("id", QString::number(feedId));
+    url.addQueryItem("batchSize", "20");
+    url.addQueryItem("offset", "0");
+    url.addQueryItem("type", "0");
+    url.addQueryItem("format", format);
+    url.addQueryItem("getRead", "true");
+
+    qDebug() << url;
+
+    m_networkManager->get(QNetworkRequest(url));
+
 }
 
 void NewsInterface::syncNextFeed()
 {
+    qDebug() << "Syncing next feed";
+
     if (!m_feedsToSync.isEmpty()) {
         int id = m_feedsToSync.takeFirst();
         getItems(id);
+        return;
     }
+    m_busy = false;
+    emit(busyChanged(m_busy));
 }
 
 FeedsModel* NewsInterface::feedsModel() const
