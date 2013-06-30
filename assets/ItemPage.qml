@@ -1,6 +1,7 @@
 import bb.cascades 1.0
 import com.kdab.components 1.0
 import uk.co.piggz 1.0
+import "DateFunctions.js" as DateFunctions
 
 Page {
     id: itemPage
@@ -44,7 +45,7 @@ Page {
                 page.body = selectedItem.itembody;
                 page.link = selectedItem.itemlink;
                 page.author = selectedItem.itemauthor;
-                page.pubdate = selectedItem.itempubdate;
+                page.pubdate = DateFunctions.timeDifference(new Date(), selectedItem.itempubdate);
                 page.unread = selectedItem.itemunread;
                 page.starred = selectedItem.itemstarred;
             }

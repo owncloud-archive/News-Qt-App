@@ -1,5 +1,5 @@
 1
-19
+20
 ownNews1024.png
 gradient.png
 FeedItem.qml
@@ -15,6 +15,7 @@ ic_world.png
 NewsItem.qml
 AdvancedPage.qml
 ic_share.png
+DateFunctions.js
 ItemView.qml
 main.qml
 FeedPage.qml

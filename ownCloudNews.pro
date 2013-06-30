@@ -95,3 +95,6 @@ blackberry{
 RESOURCES += \
     assets.qrc
 }
+
+OTHER_FILES += \
+    assets/DateFunctions.js

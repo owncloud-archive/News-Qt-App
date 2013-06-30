@@ -1,4 +1,5 @@
 import bb.cascades 1.0
+import "DateFunctions.js" as DateFunctions
 
 Container {
     id: listItemContainer
@@ -6,7 +7,7 @@ Container {
     property string body: ""
     property string link: ""
     property string author: ""
-    property string pubdate: ""
+    property date pubdate: new Date()
     property bool unread: false
     property bool starred: false
 
@@ -52,7 +53,7 @@ Container {
             }
             Label {
                 id: lblDate
-                text: pubdate
+                text: DateFunctions.timeDifference(new Date(), new Date(pubdate));
                 horizontalAlignment: HorizontalAlignment.Right
                 layoutProperties: StackLayoutProperties {
                     spaceQuota: 1
