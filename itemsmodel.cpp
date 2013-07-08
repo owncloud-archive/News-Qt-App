@@ -149,6 +149,31 @@ void ItemsModel::recreateTable()
     }
 }
 
+void ItemsModel::deleteOldData(int days)
+{
+    qDebug() << "Deleting data older than " << days << " days";
+    
+    if (m_db->isOpen()) {
+        QSqlQuery qry;
+
+        QDateTime now = QDateTime::currentDateTime();
+        now = now.addDays(-days);
+
+        qry.prepare( "DELETE FROM items WHERE pubdate < :pubdate" );
+        qry.bindValue(":pubdate", now.toTime_t());
+        qDebug() << now << qry.lastQuery();
+        qDebug() << qry.boundValues();
+
+        bool ret = qry.exec();
+
+        if(!ret) {
+            qDebug() << qry.lastError();
+        } else {
+            qDebug() << "Items table cleared of old items!";
+        }
+    }
+}
+
 
 
 QHash<int, QByteArray> ItemsModel::roleNames() const

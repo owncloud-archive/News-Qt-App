@@ -39,11 +39,12 @@ NewsInterface::NewsInterface(QObject *parent) : QObject(parent)
     connect(m_itemsModel, SIGNAL(feedParseComplete()), this, SLOT(slotItemProcessFinished()));
 }
 
-void NewsInterface::sync(const QString &url, const QString& username, const QString &password)
+void NewsInterface::sync(const QString &url, const QString& username, const QString &password, int daysToRetain)
 {
     serverPath = url;
     m_username = username;
     m_password = password;
+    m_daysToRetain = daysToRetain;
     getFeeds();
 }
 
@@ -132,6 +133,8 @@ void NewsInterface::syncNextFeed()
         getItems(id);
         return;
     }
+
+    m_itemsModel->deleteOldData(m_daysToRetain);
     m_busy = false;
     emit(busyChanged(m_busy));
 }

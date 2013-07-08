@@ -26,7 +26,7 @@ public:
     FeedsModel *feedsModel() const;
     ItemsModel* itemsModel() const;
 
-    Q_INVOKABLE void sync(const QString &url, const QString& username, const QString &password);
+    Q_INVOKABLE void sync(const QString &url, const QString& username, const QString &password, int daysToRetain);
     Q_INVOKABLE void viewItems(int feedId);
     Q_INVOKABLE void recreateDatabase();
 
@@ -47,6 +47,7 @@ private:
     QString itemsPath;
     QString m_username;
     QString m_password;
+    int m_daysToRetain;
 
     bool m_busy;
 

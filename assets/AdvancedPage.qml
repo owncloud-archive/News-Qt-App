@@ -12,6 +12,8 @@ Page {
         }
     }
 
+    signal daysToRetainChanged(int days);
+
     Container {
         topPadding: 30
         leftPadding: 30
@@ -26,6 +28,37 @@ Page {
                 NewsInterface.recreateDatabase();
             }
         }
+
+        Label {
+            text: "Days to retain:"
+        }
+
+        Container {
+
+            layout: StackLayout {
+                    orientation: LayoutOrientation.LeftToRight;
+                }
+
+            Slider {
+                id: sldRetain
+                fromValue: 3
+                toValue: 60
+
+                onValueChanged: {
+                    daysToRetainChanged(Math.round(value));
+                }
+            }
+
+            Label {
+                text: Math.round(sldRetain.immediateValue)
+                preferredWidth: 200
+            }
+
+        }
+    }
+
+    function setDaysToRetain(days) {
+        sldRetain.value = days;
     }
 }
 

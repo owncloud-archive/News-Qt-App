@@ -32,6 +32,7 @@ public:
     void setDatabase(QSqlDatabase *db);
     void setFeed(int feedId);
     void recreateTable();
+    void deleteOldData(int days);
 
 signals:
     void feedParseComplete();

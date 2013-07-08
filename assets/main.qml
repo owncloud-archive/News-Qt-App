@@ -7,12 +7,14 @@ NavigationPane {
     property string ownCloudURL: ""
     property string username: ""
     property string password: ""
+    property int daysToRetain: 0
 
     function loadSettings() {
         console.log("Loading Settings");
         ownCloudURL = Helper.getSetting("ownCloudURL", "");
         username = Helper.getSetting("username", "");
         password = Helper.getSetting("password", "");
+        daysToRetain = Helper.getSetting("daysToRetain", 14);
 
         console.log(ownCloudURL, username, password);
 
@@ -34,6 +36,7 @@ NavigationPane {
         Helper.setSetting("ownCloudURL", ownCloudURL);
         Helper.setSetting("username", username);
         Helper.setSetting("password", password);
+        Helper.setSetting("daysToRetain", daysToRetain)
     }
 
     Page {
@@ -124,6 +127,8 @@ NavigationPane {
                     function getAdvancedPage() {
                         if (! advancedPage) {
                             advancedPage = advancedPageDefinition.createObject();
+                            advancedPage.daysToRetainChanged.connect(daysToRetainChanged);
+                            advancedPage.setDaysToRetain(daysToRetain);
                         }
                         return advancedPage;
                     }
@@ -144,6 +149,12 @@ NavigationPane {
         OrientationSupport.supportedDisplayOrientation = SupportedDisplayOrientation.All;
 
         loadSettings();
+    }
+
+    function daysToRetainChanged(days)
+    {
+        console.log(days)
+        daysToRetain = days;
     }
 
 
