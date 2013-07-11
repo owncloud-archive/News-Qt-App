@@ -83,7 +83,7 @@ Container {
             }
 
         }
-        /*
+  /*
         WebView {
             id: bodyHtml
             //multiline: true
@@ -99,8 +99,8 @@ Container {
                 textAlign: TextAlign.Left
             }
 
-        }*/
-
+        }
+*/
     }
     attachedObjects: [
             ImagePaintDefinition {

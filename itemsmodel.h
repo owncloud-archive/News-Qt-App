@@ -16,6 +16,7 @@ public:
         ItemFeedId,
         ItemTitle,
         ItemBody,
+        ItemBodyHTML,
         ItemLink,
         ItemAuthor,
         ItemPubDate,

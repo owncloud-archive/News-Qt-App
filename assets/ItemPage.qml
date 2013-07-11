@@ -42,7 +42,7 @@ Page {
                 navigationPane.push(page);
 
                 page.title = selectedItem.itemtitle;
-                page.body = selectedItem.itembody;
+                page.body = selectedItem.itembodyhtml;
                 page.link = selectedItem.itemlink;
                 page.author = selectedItem.itemauthor;
                 page.pubdate = DateFunctions.timeDifference(new Date(), selectedItem.itempubdate);

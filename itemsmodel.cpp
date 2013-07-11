@@ -26,6 +26,8 @@ QVariant ItemsModel::data(const QModelIndex &index, int role) const
             return m_items.at(index.row())["title"];
         } else if (role == ItemBody) {
             return m_items.at(index.row())["body"];
+        } else if (role == ItemBodyHTML) {
+            return m_items.at(index.row())["bodyhtml"];
         } else if (role == ItemLink) {
             return m_items.at(index.row())["link"];
         } else if (role == ItemAuthor) {
@@ -112,15 +114,12 @@ void ItemsModel::setFeed(int feedId)
                 txt.setHtml(qry.value(3).toString());
                 item["body"] = txt.toPlainText().trimmed();
 
-                //item["title"] = qry.value(2).toString().remove(QRegExp("<[^>]*>")).trimmed();
-                //item["body"] = qry.value(3).toString().remove(QRegExp("<[^>]*>")).trimmed();
+                item["bodyhtml"] = qry.value(3).toString();
                 item["link"] = qry.value(4).toString();
                 item["author"] = qry.value(5).toString();
                 item["pubdate"] = QDateTime::fromTime_t(qry.value(6).toUInt());
                 item["unread"] = qry.value(7).toBool();
                 item["starred"] = qry.value(8).toBool();
-
-                qDebug() << item["body"];
 
                 m_items << item;
 
@@ -183,6 +182,7 @@ QHash<int, QByteArray> ItemsModel::roleNames() const
     names[ItemFeedId] = "itemfeedid";
     names[ItemTitle] = "itemtitle";
     names[ItemBody] = "itembody";
+    names[ItemBodyHTML] = "itembodyhtml";
     names[ItemLink] = "itemlink";
     names[ItemAuthor] = "itemauthor";
     names[ItemPubDate] = "itempubdate";
