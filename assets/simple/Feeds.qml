@@ -20,16 +20,18 @@ Rectangle {
             height: 64
 
             gradient: Gradient {
-                     GradientStop { position: 0.0; color: "#dddddd" }
-                     GradientStop { position: 0.33; color: "#ffffff" }
-                 }
+                GradientStop { position: 0.0; color: "#dddddd" }
+                GradientStop { position: 0.33; color: "#ffffff" }
+            }
 
             MouseArea {
                 anchors.fill: parent
 
                 onClicked: {
-                    console.log("click", feedid);
-                    feedClicked(feedid);
+                    if (!NewsInterface.busy) {
+                        console.log("click", feedid);
+                        feedClicked(feedid);
+                    }
                 }
             }
 
@@ -134,7 +136,7 @@ Rectangle {
         width: 200
 
         onButtonClicked: {
-            NewsInterface.sync(_ownCloudURL, _username, _password)
+            NewsInterface.sync(_ownCloudURL, _username, _password, 10)
         }
     }
 

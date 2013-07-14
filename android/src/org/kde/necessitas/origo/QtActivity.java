@@ -261,7 +261,12 @@ public class QtActivity extends Activity
             public void onClick(DialogInterface dialogInterface, int i) {
                 try
                 {
-                    Uri uri = Uri.parse("market://search?q=pname:org.kde.necessitas.ministro");
+                    Uri uri;
+                    if (android.os.Build.MANUFACTURER.equals("Amazon")) {
+                        uri = Uri.parse("amzn://apps/android?p=org.kde.necessitas.ministro");
+                    } else {
+                        uri = Uri.parse("market://search?q=pname:org.kde.necessitas.ministro");
+                    }
                     Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                     startActivityForResult(intent, MINISTRO_INSTALL_REQUEST_CODE);
                 }

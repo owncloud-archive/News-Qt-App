@@ -2,7 +2,7 @@ import QtQuick 1.1
 
 Rectangle {
     signal backClicked();
-    signal itemClicked(int itemId, string itemTitle, string itemBody, bool itemUnread, bool itemStarred, string itemAuthor, string itemPubDate);
+    signal itemClicked(int itemId, string itemTitle, string itemBody, bool itemUnread, bool itemStarred, string itemAuthor, string itemPubDate, string itemLink);
 
     PGZBusy {
         anchors.centerIn: parent
@@ -28,7 +28,7 @@ Rectangle {
                 anchors.fill: parent
 
                 onClicked: {
-                    itemClicked(itemid, itemtitle, itembody, itemunread, itemstarred, itemauthor, itempubdate);
+                    itemClicked(itemid, itemtitle, itembodyhtml, itemunread, itemstarred, itemauthor, itempubdate, itemlink);
                 }
             }
 
@@ -59,7 +59,6 @@ Rectangle {
                     anchors.right: parent.right
                     clip: true
                     maximumLineCount: 3
-
 
                 }
             }

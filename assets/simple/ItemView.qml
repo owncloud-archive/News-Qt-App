@@ -86,14 +86,28 @@ Rectangle {
             Text {
 
                 id: txtBody
-                text: body
+                text: "<html>" + strip_tags(body, "<a><b><p><strong><em><i>") + "</html>"
+                textFormat: Text.RichText
                 font.pointSize: 12
-                color: "#888888"
                 wrapMode: Text.Wrap
                 anchors.left: parent.left
                 anchors.right: parent.right
                 anchors.top: titleRow.bottom
                 anchors.margins: 5
+
+                onLinkActivated: {
+                    console.log(link, ".activated");
+                    Qt.openUrlExternally(link);
+                }
+
+                function strip_tags (input, allowed) {
+                    allowed = (((allowed || "") + "").toLowerCase().match(/<[a-z][a-z0-9]*>/g) || []).join(''); // making sure the allowed arg is a string containing only tags in lowercase (<a><b><c>)
+                    var tags = /<\/?([a-z][a-z0-9]*)\b[^>]*>/gi,
+                            commentsAndPhpTags = /<!--[\s\S]*?-->|<\?(?:php)?[\s\S]*?\?>/gi;
+                    return input.replace(commentsAndPhpTags, '').replace(tags, function ($0, $1) {
+                        return allowed.indexOf('<' + $1.toLowerCase() + '>') > -1 ? $0 : '';
+                    });
+                }
 
             }
         }
@@ -113,6 +127,22 @@ Rectangle {
 
         onButtonClicked: {
             backClicked();
+        }
+    }
+
+    PGZButton {
+        id:btnOpen
+        anchors.bottom: parent.bottom
+        anchors.right: parent.right
+        anchors.margins: 10
+
+        height: 100
+        width: 200
+
+        buttonText: "Visit"
+
+        onButtonClicked: {
+            Qt.openUrlExternally(link);
         }
     }
 

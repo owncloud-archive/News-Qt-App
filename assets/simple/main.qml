@@ -77,6 +77,7 @@ Rectangle {
                 item.unread = itemUnread;
                 item.starred = itemStarred;
                 item.pubdate = timeDifference(new Date(), new Date(itemPubDate));
+                item.link = itemLink
             }
         }
 
