@@ -8,6 +8,7 @@ NavigationPane {
     property string username: ""
     property string password: ""
     property int daysToRetain: 0
+    property int numberItemsToSync: 0
 
     function loadSettings() {
         console.log("Loading Settings");
@@ -15,8 +16,7 @@ NavigationPane {
         username = Helper.getSetting("username", "");
         password = Helper.getSetting("password", "");
         daysToRetain = Helper.getSetting("daysToRetain", 14);
-
-        console.log(ownCloudURL, username, password);
+        numberItemsToSync = Helper.getSetting("numberItemsToSync", 20);
 
         if (ownCloudURL != "") {
             txtOwnCloud.text = ownCloudURL
@@ -36,7 +36,8 @@ NavigationPane {
         Helper.setSetting("ownCloudURL", ownCloudURL);
         Helper.setSetting("username", username);
         Helper.setSetting("password", password);
-        Helper.setSetting("daysToRetain", daysToRetain)
+        Helper.setSetting("daysToRetain", daysToRetain);
+        Helper.setSetting("numberItemsToSync", numberItemsToSync);
     }
 
     Page {
@@ -128,7 +129,10 @@ NavigationPane {
                         if (! advancedPage) {
                             advancedPage = advancedPageDefinition.createObject();
                             advancedPage.daysToRetainChanged.connect(daysToRetainChanged);
+                            advancedPage.numberItemsToSyncChanged.connect(numberItemsToSyncChanged);
+
                             advancedPage.setDaysToRetain(daysToRetain);
+                            advancedPage.setNumItemsToSync(numberItemsToSync);
                         }
                         return advancedPage;
                     }
@@ -147,6 +151,7 @@ NavigationPane {
     onCreationCompleted: {
         console.log("NavigationPane - onCreationCompleted()");
         OrientationSupport.supportedDisplayOrientation = SupportedDisplayOrientation.All;
+        Qt.NewsInterface = NewsInterface;
 
         loadSettings();
     }
@@ -155,6 +160,11 @@ NavigationPane {
     {
         console.log(days)
         daysToRetain = days;
+    }
+
+    function numberItemsToSyncChanged(numitems)
+    {
+        numberItemsToSync = numitems;
     }
 
 

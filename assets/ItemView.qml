@@ -11,6 +11,9 @@ Page {
     property string pubdate: ""
     property bool unread: false
     property bool starred: false
+    property string guid: ""
+    property string guidhash: ""
+    property int feedid: 0
 
     paneProperties: NavigationPaneProperties {
         backButton: ActionItem {
@@ -89,6 +92,63 @@ Page {
             topPadding: 15
             bottomPadding: 15
 
+            Container {
+                layout: StackLayout {
+                    orientation:  LayoutOrientation.LeftToRight
+                }
+
+                Container {
+                    layout: DockLayout {        }
+
+                    layoutProperties: StackLayoutProperties {
+                        spaceQuota: 1.0
+                    }
+
+                    Label {
+                        id: lblTitle
+                        multiline: true
+                        text: title
+                        horizontalAlignment: HorizontalAlignment.Left
+                        verticalAlignment: VerticalAlignment.Top
+
+                        maxWidth: 600
+
+                        textStyle {
+                            base: SystemDefaults.TextStyles.TitleText
+                            color: Color.Black
+                        }
+                    }
+
+                    //Use this view until updating the star status works
+                    ImageView {
+                        horizontalAlignment: HorizontalAlignment.Right
+                        verticalAlignment: VerticalAlignment.Top
+                        preferredWidth: 96
+                        preferredHeight: 96
+                        imageSource: starred ? "star-filled.png" : "star-unfilled.png"
+                    }
+
+                    /*
+                    ImageToggleButton {
+                        id: btnStar
+                        horizontalAlignment: HorizontalAlignment.Right
+                        verticalAlignment: VerticalAlignment.Top
+                        preferredWidth: 96
+                        preferredHeight: 96
+                        checked: starred
+                        imageSourceDefault: "star-unfilled.png"
+                        imageSourceChecked: "star-filled.png"
+
+                        onCheckedChanged: {
+                            Qt.NewsInterface.setItemStarred(feedid, guidhash, checked);
+                        }
+                    }
+                    */
+                }
+
+            }
+
+            /*
             Label {
                 id: lblTitle
                 multiline: true
@@ -98,39 +158,47 @@ Page {
                     base: SystemDefaults.TextStyles.TitleText
                     color: Color.Black
                 }
-            }
+            }*/
 
             Container {
+
                 layout: StackLayout {
                     orientation:  LayoutOrientation.LeftToRight
                 }
 
-                Label {
-                    id: lblAuthor
-                    text: author
+                Container {
+                    layout: DockLayout {
+                    }
 
                     layoutProperties: StackLayoutProperties {
-                        spaceQuota: 1
+                        spaceQuota: 1.0
                     }
 
-                    textStyle {
-                        base: SystemDefaults.TextStyles.TitleText
-                        color: Color.Black
-                        fontSize: FontSize.Small
-                    }
-                }
-                Label {
-                    id: lblDate
-                    text: pubdate
-                    horizontalAlignment: HorizontalAlignment.Right
-                    layoutProperties: StackLayoutProperties {
-                        spaceQuota: 1
-                    }
+                    Label {
+                        id: lblAuthor
+                        text: author
 
-                    textStyle {
-                        base: SystemDefaults.TextStyles.TitleText
-                        color: Color.Black
-                        fontSize: FontSize.Small
+                        horizontalAlignment: HorizontalAlignment.Left
+                        verticalAlignment: VerticalAlignment.Top
+
+                        textStyle {
+                            base: SystemDefaults.TextStyles.TitleText
+                            color: Color.Black
+                            fontSize: FontSize.Small
+                        }
+                    }
+                    Label {
+                        id: lblDate
+                        text: pubdate
+
+                        horizontalAlignment: HorizontalAlignment.Right
+                        verticalAlignment: VerticalAlignment.Top
+
+                        textStyle {
+                            base: SystemDefaults.TextStyles.TitleText
+                            color: Color.Black
+                            fontSize: FontSize.Small
+                        }
                     }
                 }
             }

@@ -16,7 +16,7 @@ Page {
             ActionItem {
                 id: actionSync
                 title: "Sync"
-                onTriggered: NewsInterface.sync(ownCloudURL, username, password, daysToRetain)
+                onTriggered: NewsInterface.sync(ownCloudURL, username, password, daysToRetain, numberItemsToSync)
                 ActionBar.placement: ActionBarPlacement.OnBar
                 enabled: !NewsInterface.busy
             }

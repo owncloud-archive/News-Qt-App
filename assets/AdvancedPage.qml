@@ -13,12 +13,14 @@ Page {
     }
 
     signal daysToRetainChanged(int days);
+    signal numberItemsToSyncChanged(int numitems);
 
     Container {
         topPadding: 30
         leftPadding: 30
         bottomPadding: 30
         rightPadding: 30
+
 
         Button {
 
@@ -28,6 +30,7 @@ Page {
                 NewsInterface.recreateDatabase();
             }
         }
+
 
         Label {
             text: "Days to retain:"
@@ -55,10 +58,41 @@ Page {
             }
 
         }
+
+        Label {
+            text: "Number of items to sync:"
+        }
+
+        Container {
+
+            layout: StackLayout {
+                    orientation: LayoutOrientation.LeftToRight;
+                }
+
+            Slider {
+                id: sldNumSync
+                fromValue: 20
+                toValue: 50
+
+                onValueChanged: {
+                    numberItemsToSyncChanged(Math.round(value));
+                }
+            }
+
+            Label {
+                text: Math.round(sldNumSync.immediateValue)
+                preferredWidth: 200
+            }
+
+        }
     }
 
     function setDaysToRetain(days) {
         sldRetain.value = days;
+    }
+
+    function setNumItemsToSync(numitems) {
+        sldNumSync.value = numitems;
     }
 }
 

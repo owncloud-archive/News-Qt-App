@@ -15,6 +15,8 @@ public:
         ItemId = Qt::UserRole + 1,
         ItemFeedId,
         ItemTitle,
+        ItemGUID,
+        ItemGUIDHash,
         ItemBody,
         ItemBodyHTML,
         ItemLink,
@@ -34,6 +36,8 @@ public:
     void setFeed(int feedId);
     void recreateTable();
     void deleteOldData(int days);
+
+
 
 signals:
     void feedParseComplete();

@@ -35,16 +35,16 @@ void ItemWorker::parseItems()
 
     foreach(QVariant item, items) {
         QVariantMap map = item.toMap();
-        addItem(map["id"].toInt(), map["feedId"].toInt(), map["title"].toString(), map["body"].toString(), map["url"].toString(), map["author"].toString(), map["pubDate"].toUInt(), map["unread"].toBool(), map["starred"].toBool());
+        addItem(map["id"].toInt(), map["feedId"].toInt(), map["title"].toString(), map["body"].toString(), map["url"].toString(), map["author"].toString(), map["pubDate"].toUInt(), map["unread"].toBool(), map["starred"].toBool(), map["guid"].toString(), map["guidHash"].toString());
     }
 }
 
 
-void ItemWorker::addItem(int id, int feedid, const QString &title, const QString &body, const QString &link, const QString& author, unsigned int pubdate, bool unread, bool starred)
+void ItemWorker::addItem(int id, int feedid, const QString &title, const QString &body, const QString &link, const QString& author, unsigned int pubdate, bool unread, bool starred, const QString& guid, const QString& guidhash)
 {
     if (m_db->isOpen()) {
         QSqlQuery qry;
-        qry.prepare("INSERT OR REPLACE INTO items(id, feedid, title, body, link, author, pubdate, unread, starred) VALUES(:id, :feedid, :title, :body, :link, :author, :pubdate, :unread, :starred)");
+        qry.prepare("INSERT OR REPLACE INTO items(id, feedid, title, body, link, author, pubdate, unread, starred, guid, guidhash) VALUES(:id, :feedid, :title, :body, :link, :author, :pubdate, :unread, :starred, :guid, :guidhash)");
         qry.bindValue(":id", id);
         qry.bindValue(":feedid", feedid);
         qry.bindValue(":title", title);
@@ -54,6 +54,8 @@ void ItemWorker::addItem(int id, int feedid, const QString &title, const QString
         qry.bindValue(":pubdate", pubdate);
         qry.bindValue(":unread", unread);
         qry.bindValue(":starred", starred);
+        qry.bindValue(":guid", guid);
+        qry.bindValue(":guidhash", guidhash);
 
 //        qDebug() << "Adding item " << feedid << title << pubdate;
 

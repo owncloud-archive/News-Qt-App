@@ -22,6 +22,7 @@ Page {
                 ListItemComponent {
                     type: ""
                     NewsItem {
+                        itemid: ListItemData.itemid
                         title: ListItemData.itemtitle
                         body: ListItemData.itembody
                         link: ListItemData.itemlink
@@ -29,6 +30,9 @@ Page {
                         pubdate: ListItemData.itempubdate
                         unread: ListItemData.itemunread
                         starred: ListItemData.itemstarred
+                        guid: ListItemData.itemguid
+                        guidhash: ListItemData.itemguidhash
+                        feedid: ListItemData.itemfeedid
                     }
 
                 }
@@ -39,7 +43,7 @@ Page {
                 console.log (selectedItem.itemtitle);
 
                 var page = getItemViewPage();
-                navigationPane.push(page);
+
 
                 page.title = selectedItem.itemtitle;
                 page.body = selectedItem.itembodyhtml;
@@ -48,6 +52,9 @@ Page {
                 page.pubdate = DateFunctions.timeDifference(new Date(), selectedItem.itempubdate);
                 page.unread = selectedItem.itemunread;
                 page.starred = selectedItem.itemstarred;
+
+                NewsInterface.setItemRead(selectedItem.itemid, true);
+                navigationPane.push(page);
             }
 
 

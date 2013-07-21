@@ -38,6 +38,10 @@ QVariant ItemsModel::data(const QModelIndex &index, int role) const
             return m_items.at(index.row())["unread"];
         } else if (role == ItemStarred) {
             return m_items.at(index.row())["starred"];
+        } else if (role == ItemGUID) {
+            return m_items.at(index.row())["guid"];
+        } else if (role == ItemGUIDHash) {
+            return m_items.at(index.row())["guidhash"];
         }
     }
 
@@ -91,7 +95,7 @@ void ItemsModel::setFeed(int feedId)
 {
     if (m_db->isOpen()) {
         QSqlQuery qry;
-        qry.prepare("SELECT id, feedid, title, body, link, author, pubdate, unread, starred FROM items WHERE feedid = :fid ORDER BY pubdate DESC");
+        qry.prepare("SELECT id, feedid, title, guid, guidhash, body, link, author, pubdate, unread, starred FROM items WHERE feedid = :fid ORDER BY pubdate DESC");
         qry.bindValue(":fid", feedId);
 
         bool ret = qry.exec();
@@ -111,15 +115,18 @@ void ItemsModel::setFeed(int feedId)
                 txt.setHtml(qry.value(2).toString());
                 item["title"] = txt.toPlainText().trimmed();
 
-                txt.setHtml(qry.value(3).toString());
+                item["guid"] = qry.value(3).toString();
+                item["guidhash"] = qry.value(4).toString();
+
+                txt.setHtml(qry.value(5).toString());
                 item["body"] = txt.toPlainText().trimmed();
 
-                item["bodyhtml"] = qry.value(3).toString();
-                item["link"] = qry.value(4).toString();
-                item["author"] = qry.value(5).toString();
-                item["pubdate"] = QDateTime::fromTime_t(qry.value(6).toUInt());
-                item["unread"] = qry.value(7).toBool();
-                item["starred"] = qry.value(8).toBool();
+                item["bodyhtml"] = qry.value(5).toString();
+                item["link"] = qry.value(6).toString();
+                item["author"] = qry.value(7).toString();
+                item["pubdate"] = QDateTime::fromTime_t(qry.value(8).toUInt());
+                item["unread"] = qry.value(9).toBool();
+                item["starred"] = qry.value(10).toBool();
 
                 m_items << item;
 
@@ -137,7 +144,7 @@ void ItemsModel::recreateTable()
         qry.prepare( "DROP TABLE items" );
         bool ret = qry.exec();
 
-        qry.prepare( "CREATE TABLE IF NOT EXISTS items (id INTEGER UNIQUE PRIMARY KEY, feedid INTEGER, title VARCHAR(1024), body VARCHAR(2048), link VARCHAR(2048), author VARCHAR(1024), pubdate INTEGER, unread INTEGER, starred INTEGER)" );
+        qry.prepare( "CREATE TABLE IF NOT EXISTS items (id INTEGER UNIQUE PRIMARY KEY, feedid INTEGER, title VARCHAR(1024), guid VARCHAR(1024), guidhash VARCHAR(1024), body VARCHAR(2048), link VARCHAR(2048), author VARCHAR(1024), pubdate INTEGER, unread INTEGER, starred INTEGER)" );
         ret = qry.exec();
 
         if(!ret) {
@@ -181,6 +188,8 @@ QHash<int, QByteArray> ItemsModel::roleNames() const
     names[ItemId] = "itemid";
     names[ItemFeedId] = "itemfeedid";
     names[ItemTitle] = "itemtitle";
+    names[ItemGUID] = "itemguid";
+    names[ItemGUIDHash] = "itemguidhash";
     names[ItemBody] = "itembody";
     names[ItemBodyHTML] = "itembodyhtml";
     names[ItemLink] = "itemlink";

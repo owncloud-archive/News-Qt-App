@@ -1,5 +1,6 @@
 1
-20
+22
+star-filled.png
 ownNews1024.png
 gradient.png
 FeedItem.qml
@@ -11,6 +12,7 @@ simple/PGZButton.qml
 simple/Items.qml
 simple/main.qml
 simple/Intro.qml
+star-unfilled.png
 ic_world.png
 NewsItem.qml
 AdvancedPage.qml

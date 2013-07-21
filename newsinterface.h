@@ -26,9 +26,11 @@ public:
     FeedsModel *feedsModel() const;
     ItemsModel* itemsModel() const;
 
-    Q_INVOKABLE void sync(const QString &url, const QString& username, const QString &password, int daysToRetain);
+    Q_INVOKABLE void sync(const QString &url, const QString& username, const QString &password, int daysToRetain = 14, int numItemsToSync = 20);
     Q_INVOKABLE void viewItems(int feedId);
     Q_INVOKABLE void recreateDatabase();
+    Q_INVOKABLE void setItemRead(long itemId, bool read);
+    Q_INVOKABLE void setItemStarred(int feedId, const QString& itemGUIDHash, bool starred);
 
 signals:
     void busyChanged(bool busy);
@@ -48,6 +50,7 @@ private:
     QString m_username;
     QString m_password;
     int m_daysToRetain;
+    int m_numItemsToSync;
 
     bool m_busy;
 
