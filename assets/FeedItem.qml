@@ -25,26 +25,35 @@ Container {
         }
 
         Container {
+
             layout: StackLayout {
-                orientation: LayoutOrientation.LeftToRight
+                orientation:  LayoutOrientation.LeftToRight
             }
 
-            rightPadding: 80
-
-            Label {
-                id: linkLabel
-
-                layoutProperties: StackLayoutProperties {
-                    spaceQuota: 1
+            Container {
+                layout: DockLayout {
                 }
 
-                textStyle {
-                    base: SystemDefaults.TextStyles.BodyText
-                    color: Color.DarkGray
-                    textAlign: TextAlign.Right
+                layoutProperties: StackLayoutProperties {
+                    spaceQuota: 1.0
+                }
+
+
+                Label {
+                    id: linkLabel
+
+                    horizontalAlignment: HorizontalAlignment.Right
+                    verticalAlignment: VerticalAlignment.Top
+
+                    textStyle {
+                        base: SystemDefaults.TextStyles.TitleText
+                        color: Color.DarkGray
+                        fontSize: FontSize.Small
+                    }
                 }
             }
         }
+
 
 
     }

@@ -29,6 +29,12 @@ NavigationPane {
         if (password != "") {
             txtPassword.text = password;
         }
+
+        if (ownCloudURL != "" && username != "" && password != "") {
+            //auto page
+            btnContinue.clicked();
+
+        }
     }
 
     function saveSettings() {
@@ -86,6 +92,7 @@ NavigationPane {
                 }
 
                 Button {
+                    id: btnContinue
 
                     text: qsTr("Continue")
 

@@ -81,7 +81,18 @@ void ItemsModel::setDatabase(QSqlDatabase *db)
     if (m_db->isOpen()) {
         QSqlQuery qry;
 
-        qry.prepare( "CREATE TABLE IF NOT EXISTS items (id INTEGER UNIQUE PRIMARY KEY, feedid INTEGER, title VARCHAR(1024), body VARCHAR(2048), link VARCHAR(2048), author VARCHAR(1024), pubdate INT, unread INT, starred INT)" );
+        qry.prepare( "CREATE TABLE IF NOT EXISTS items (id INTEGER UNIQUE PRIMARY KEY, \
+                     feedid INTEGER, \
+                     title VARCHAR(1024), \
+                     guid VARCHAR(1024), \
+                     guidhash VARCHAR(1024), \
+                     body VARCHAR(2048), \
+                     link VARCHAR(2048), \
+                     author VARCHAR(1024), \
+                     pubdate INTEGER, \
+                     unread INTEGER, \
+                     starred INTEGER)" );
+
         bool ret = qry.exec();
         if(!ret) {
             qDebug() << qry.lastError();
@@ -144,7 +155,17 @@ void ItemsModel::recreateTable()
         qry.prepare( "DROP TABLE items" );
         bool ret = qry.exec();
 
-        qry.prepare( "CREATE TABLE IF NOT EXISTS items (id INTEGER UNIQUE PRIMARY KEY, feedid INTEGER, title VARCHAR(1024), guid VARCHAR(1024), guidhash VARCHAR(1024), body VARCHAR(2048), link VARCHAR(2048), author VARCHAR(1024), pubdate INTEGER, unread INTEGER, starred INTEGER)" );
+        qry.prepare( "CREATE TABLE IF NOT EXISTS items (id INTEGER UNIQUE PRIMARY KEY, \
+                     feedid INTEGER, \
+                     title VARCHAR(1024), \
+                     guid VARCHAR(1024), \
+                     guidhash VARCHAR(1024), \
+                     body VARCHAR(2048), \
+                     link VARCHAR(2048), \
+                     author VARCHAR(1024), \
+                     pubdate INTEGER, \
+                     unread INTEGER, \
+                     starred INTEGER)" );
         ret = qry.exec();
 
         if(!ret) {

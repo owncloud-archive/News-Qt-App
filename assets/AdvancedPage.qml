@@ -20,7 +20,7 @@ Page {
         leftPadding: 30
         bottomPadding: 30
         rightPadding: 30
-
+/*
 
         Button {
 
@@ -30,7 +30,7 @@ Page {
                 NewsInterface.recreateDatabase();
             }
         }
-
+*/
 
         Label {
             text: "Days to retain:"

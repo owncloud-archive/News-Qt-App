@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 2.8.0, 2013-07-20T22:17:04. -->
+<!-- Written by QtCreator 2.8.0, 2013-07-30T19:59:26. -->
 <qtcreator>
  <data>
   <variable>ProjectExplorer.Project.ActiveTarget</variable>
@@ -383,9 +383,9 @@
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName"></value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">Create packages</value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.QnxCreatePackageBuildStep</value>
-      <value type="QString" key="Qt4ProjectManager.BlackBerryCreatePackageStep.CskPassword"></value>
-      <value type="QString" key="Qt4ProjectManager.BlackBerryCreatePackageStep.KeystorePassword"></value>
-      <value type="int" key="Qt4ProjectManager.BlackBerryCreatePackageStep.PackageMode">1</value>
+      <value type="QString" key="Qt4ProjectManager.BlackBerryCreatePackageStep.CskPassword">scrumpyc4t</value>
+      <value type="QString" key="Qt4ProjectManager.BlackBerryCreatePackageStep.KeystorePassword">scrumpyc4t</value>
+      <value type="int" key="Qt4ProjectManager.BlackBerryCreatePackageStep.PackageMode">0</value>
       <value type="bool" key="Qt4ProjectManager.BlackBerryCreatePackageStep.SavePasswords">true</value>
      </valuemap>
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.2">

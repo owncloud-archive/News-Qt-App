@@ -125,8 +125,8 @@ void NewsInterface::getFeeds()
 
         qDebug() << url;
 
-        m_networkManager->get(QNetworkRequest(url));
-
+        QNetworkReply *reply = m_networkManager->get(QNetworkRequest(url));
+        connect(reply, SIGNAL(sslErrors(QList<QSslError>)), reply, SLOT(ignoreSslErrors()));
     }
 }
 
@@ -150,8 +150,8 @@ void NewsInterface::getItems(int feedId)
 
     qDebug() << url;
 
-    m_networkManager->get(QNetworkRequest(url));
-
+    QNetworkReply *reply = m_networkManager->get(QNetworkRequest(url));
+    connect(reply, SIGNAL(sslErrors(QList<QSslError>)), reply, SLOT(ignoreSslErrors()));
 }
 
 void NewsInterface::syncNextFeed()

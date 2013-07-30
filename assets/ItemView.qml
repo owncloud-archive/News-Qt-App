@@ -36,6 +36,16 @@ Page {
             imageSource: "asset:///ic_world.png"
         },
         ActionItem {
+            id: actionMobiizer
+            title: "Instapaper"
+            onTriggered: {
+                // will auto-invoke after re-arming
+                invokeLink.query.uri = "http://mobilizer.instapaper.com/m?u=" + link;
+            }
+            ActionBar.placement: ActionBarPlacement.OnBar
+            imageSource: "asset:///ic_mobile.png"
+        },
+        ActionItem {
             id: actionShare
             title: "Share"
             onTriggered: {
@@ -60,6 +70,7 @@ Page {
 
                 onUriChanged: {
                     invokeLink.query.updateQuery();
+                    console.log(uri);
                 }
             }
 

@@ -1,4 +1,5 @@
 TEMPLATE = app
+VERSION = 0.2
 
 !blackberry {
     include(qmlapplicationviewer/qmlapplicationviewer.pri)
