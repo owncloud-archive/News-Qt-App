@@ -40,7 +40,6 @@ Rectangle {
             width: parent.width
             height: childrenRect.height
 
-
             Text {
                 id: txtTitle
                 text: title
@@ -79,6 +78,7 @@ Rectangle {
                     width: parent.width / 3
                     clip: true
                     wrapMode: Text.WordWrap
+                    horizontalAlignment: Text.AlignRight
                 }
             }
 

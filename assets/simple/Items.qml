@@ -17,7 +17,7 @@ Rectangle {
 
         Rectangle {
             width: parent.width
-            height: 128
+            height: colContent.height + 10
 
             gradient: Gradient {
                 GradientStop { position: 0.0; color: "#dddddd" }
@@ -40,14 +40,68 @@ Rectangle {
 
 
             Column {
-                anchors.fill: parent
-                anchors.margins: 5
-                Text {
-                    id: txtTitle
-                    text: itemtitle
-                    font.pointSize: 14
-                    font.bold: itemunread
+                id: colContent
+                height: childrenRect.height
+                width: parent.width
+                y: 5
+                spacing: 5
+
+                Item {
+
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+
+                    height: childrenRect.height
+
+                    Text {
+                        id: txtTitle
+                        text: itemtitle
+                        font.pointSize: 14
+                        font.bold: itemunread
+                        anchors.left: parent.left
+                        width: parent.width - 64
+                    }
+
+                    Image {
+                        id: imgStar
+                        anchors.right: parent.right
+                        source: itemstarred ? "../star-filled.png" : "../star-unfilled.png"
+                        width: 64
+                        height: 64
+
+                    }
                 }
+
+                Item {
+                    id: titleRow
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+
+                    height: childrenRect.height
+                    anchors.margins: 0
+
+                    Text {
+                        id: txtAuthor
+                        text: itemauthor
+                        font.pointSize: 12
+                        anchors.left: parent.left
+                        width: parent.width / 2
+                        clip: true
+                        wrapMode: Text.WordWrap
+                    }
+
+                    Text {
+                        id: txtPubDate
+                        text: timeDifference(new Date(), new Date(itempubdate));
+                        font.pointSize: 12
+                        anchors.right: parent.right
+                        width: parent.width / 2
+                        clip: true
+                        wrapMode: Text.WordWrap
+                        horizontalAlignment: Text.AlignRight
+                    }
+                }
+
 
                 Text {
                     id: txtBody

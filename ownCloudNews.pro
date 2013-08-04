@@ -98,4 +98,6 @@ RESOURCES += \
 }
 
 OTHER_FILES += \
-    assets/DateFunctions.js
+    assets/DateFunctions.js \
+    assets/star-unfilled.png \
+    assets/star-filled.png

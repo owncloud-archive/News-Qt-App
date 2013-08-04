@@ -11,5 +11,7 @@
         <file>assets/simple/PGZBusy.qml</file>
         <file>assets/simple/Items.qml</file>
         <file>assets/simple/ItemView.qml</file>
+        <file>assets/star-filled.png</file>
+        <file>assets/star-unfilled.png</file>
     </qresource>
 </RCC>
