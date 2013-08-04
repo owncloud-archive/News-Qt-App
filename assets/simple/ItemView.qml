@@ -40,23 +40,38 @@ Rectangle {
             width: parent.width
             height: childrenRect.height
 
-            Text {
-                id: txtTitle
-                text: title
-                font.pointSize: 14
-                font.bold: unread
-                wrapMode: Text.Wrap
+            Item {
+                id:titleRow
                 anchors.left: parent.left
                 anchors.right: parent.right
                 anchors.top: parent.top
-                anchors.margins: 5
+                height: childrenRect.height
+
+                Text {
+                    id: txtTitle
+                    text: title
+                    font.pointSize: 14
+                    font.bold: unread
+                    anchors.left: parent.left
+                    width: parent.width - 64
+                }
+
+                Image {
+                    id: imgStar
+                    anchors.right: parent.right
+                    source: starred ? "../star-filled.png" : "../star-unfilled.png"
+                    width: 64
+                    height: 64
+
+                }
             }
 
+
             Item {
-                id: titleRow
+                id: authorRow
                 anchors.left: parent.left
                 anchors.right: parent.right
-                anchors.top: txtTitle.bottom
+                anchors.top: titleRow.bottom
 
                 height: childrenRect.height
                 anchors.margins: 5
@@ -65,7 +80,7 @@ Rectangle {
                     text: author
                     font.pointSize: 12
                     anchors.left: parent.left
-                    width: parent.width / 3
+                    width: parent.width / 2
                     clip: true
                     wrapMode: Text.WordWrap
                 }
@@ -75,7 +90,7 @@ Rectangle {
                     text: pubdate
                     font.pointSize: 12
                     anchors.right: parent.right
-                    width: parent.width / 3
+                    width: parent.width / 2
                     clip: true
                     wrapMode: Text.WordWrap
                     horizontalAlignment: Text.AlignRight
@@ -92,7 +107,7 @@ Rectangle {
                 wrapMode: Text.Wrap
                 anchors.left: parent.left
                 anchors.right: parent.right
-                anchors.top: titleRow.bottom
+                anchors.top: authorRow.bottom
                 anchors.margins: 5
 
                 onLinkActivated: {
