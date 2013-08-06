@@ -30,6 +30,7 @@ public:
     
     virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
     virtual int rowCount(const QModelIndex& parent = QModelIndex()) const;
+    virtual QHash<int, QByteArray> roleNames() const;
 
     void parseItems(const QByteArray& json);
     void setDatabase(QSqlDatabase *db);
@@ -46,7 +47,6 @@ private slots:
     void slotWorkerFinished();
 
 private:
-    QHash<int, QByteArray> roleNames() const;
 
     QList<QVariantMap> m_items;
 

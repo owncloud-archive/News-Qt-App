@@ -1,13 +1,50 @@
 TEMPLATE = app
 VERSION = 0.2
 
-!blackberry {
+android {
     include(qmlapplicationviewer/qmlapplicationviewer.pri)
+
+    RESOURCES += \
+    assets.qrc
+}
+
+#need something better here to detect sailfish
+!android{
+!blackberry{
+    message(SailfishOS build)
+
+    DEFINES += MER_EDITION_SAILFISH
+    MER_EDITION = sailfish
+    include(sailfishapplication/sailfishapplication.pri)
+
+    # QML files and folders
+    qml.files =  assets/sailfish/pages assets/sailfish/cover assets/sailfish/main.qml
+
+    # The .desktop file
+    desktop.files = newsFish.desktop
+
+    OTHER_FILES = \
+        rpm/ownCloudNews.yaml
+
+    QT += sql
+}
+}
+
+blackberry{
+    LIBS += -lbbdata -lbb -lbbcascades
+
+    # The .cpp file which was generated for your project. Feel free to hack it.
+    SOURCES += ownCloudNews.cpp \
+        abstractitemmodel.cpp
+
+    HEADERS += ownCloudNews.hpp \
+        abstractitemmodel.h
+
 }
 
 # Additional import path used to resolve QML modules in Creator's code model
 
-QT += declarative xml network sql
+#QT += declarative xml network sql
 
 # The .cpp file which was generated for your project. Feel free to hack it.
 SOURCES += main.cpp \
@@ -36,7 +73,7 @@ OTHER_FILES += bar-descriptor.xml \
     assets/ItemView.qml
 }
 
-!blackberry {
+android {
     OTHER_FILES += assets/simple/PGZButton.qml \
     assets/simple/main.qml \
     assets/simple/Intro.qml \
@@ -80,22 +117,7 @@ OTHER_FILES += bar-descriptor.xml \
     android/res/values/libs.xml
 }
 
-blackberry{
-    LIBS += -lbbdata -lbb -lbbcascades
 
-    # The .cpp file which was generated for your project. Feel free to hack it.
-    SOURCES += ownCloudNews.cpp \
-        abstractitemmodel.cpp
-
-    HEADERS += ownCloudNews.hpp \
-        abstractitemmodel.h
-
-}
-
-!blackberry {
-RESOURCES += \
-    assets.qrc
-}
 
 OTHER_FILES += \
     assets/DateFunctions.js \

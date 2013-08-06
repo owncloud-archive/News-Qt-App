@@ -1,0 +1,25 @@
+Name: ownCloudNews
+Summary: ownNews Client for Sailfish
+Version: 0.1
+Release: 1
+Group: Qt/Qt
+License: LICENSE
+Sources:
+- '%{name}-%{version}.tar.bz2'
+Description: |
+  Short description of my SailfishOS Application
+Configure: none
+Builder: qtc5
+PkgConfigBR:
+- Qt5Quick
+- Qt5Qml
+- Qt5Core
+- qdeclarative5-boostable
+Requires:
+- mapplauncherd-booster-silica-qt5
+- sailfishsilica-qt5
+Files:
+- /usr/bin
+- /usr/share/ownCloudNews
+- /usr/share/applications
+PkgBR: []

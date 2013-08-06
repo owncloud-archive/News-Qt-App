@@ -5,6 +5,10 @@
 #include <QAuthenticator>
 #include <QDebug>
 
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+#   include <QUrlQuery>
+#endif
+
 //const QString NewsInterface::rootPath = "/ocs/v1.php/apps/news/";
 const QString NewsInterface::rootPath = "/index.php/apps/news/api/v1-2/";
 const QString NewsInterface::format = "json";
@@ -141,13 +145,24 @@ void NewsInterface::getItems(int feedId)
     QUrl url(serverPath + itemsPath);
     url.setUserName(m_username);
     url.setPassword(m_password);
+
+#if QT_VERSION < QT_VERSION_CHECK(5,0,0)
     url.addQueryItem("id", QString::number(feedId));
     url.addQueryItem("batchSize", QString::number(m_numItemsToSync));
     url.addQueryItem("offset", "0");
     url.addQueryItem("type", "0");
     url.addQueryItem("format", format);
     url.addQueryItem("getRead", "true");
-
+#else
+    QUrlQuery q;
+    q.addQueryItem("id", QString::number(feedId));
+    q.addQueryItem("batchSize", QString::number(m_numItemsToSync));
+    q.addQueryItem("offset", "0");
+    q.addQueryItem("type", "0");
+    q.addQueryItem("format", format);
+    q.addQueryItem("getRead", "true");
+    url.setQuery(q);
+#endif
     qDebug() << url;
 
     QNetworkReply *reply = m_networkManager->get(QNetworkRequest(url));

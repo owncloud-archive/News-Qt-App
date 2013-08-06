@@ -12,7 +12,9 @@
 
 ItemsModel::ItemsModel(QObject *parent) : QAbstractListModel(parent)
 {
+#if QT_VERSION < QT_VERSION_CHECK(5,0,0)
     setRoleNames(roleNames());
+#endif
 }
 
 QVariant ItemsModel::data(const QModelIndex &index, int role) const

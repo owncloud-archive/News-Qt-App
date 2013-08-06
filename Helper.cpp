@@ -1,5 +1,4 @@
 #include "Helper.h"
-#include <QApplication>
 #include <QDebug>
 
 Helper::Helper(QObject *parent) :

@@ -4,6 +4,15 @@
 #include <bb/cascades/Application>
 #include <Qt/qdeclarativedebug.h>
 #include "abstractitemmodel.h"
+#elif defined(MER_EDITION_SAILFISH)
+#warning sailfish
+#include <QGuiApplication>
+#include <QQuickView>
+#include <QQmlContext>
+#include <QtQml>
+#include "Helper.h"
+#include "newsinterface.h"
+#include "sailfishapplication.h"
 #else
 #include <QApplication>
 #include <QtDeclarative>
@@ -19,12 +28,15 @@ Q_DECL_EXPORT int main(int argc, char **argv)
 {
 #ifdef Q_OS_BLACKBERRY
     bb::cascades::Application app(argc, argv);
+#elif defined(MER_EDITION_SAILFISH)
+    QScopedPointer<QGuiApplication> app(Sailfish::createApplication(argc, argv));
+    QScopedPointer<QQuickView> view(Sailfish::createView());
 #else
     QApplication  *app(createApplication(argc, argv));
     QmlApplicationViewer *viewer(QmlApplicationViewer::create());
 #endif
 
-
+    //Used for settings storage
     QCoreApplication::setOrganizationName("PGZ");
     QCoreApplication::setOrganizationDomain("piggz.co.uk");
     QCoreApplication::setApplicationName("pgz-ownNews");
@@ -39,6 +51,19 @@ Q_DECL_EXPORT int main(int argc, char **argv)
 #ifdef Q_OS_BLACKBERRY
     new ownCloudNews(&app);
     return bb::cascades::Application::exec();
+#elif defined(MER_EDITION_SAILFISH)
+    NewsInterface *newsInterface = new NewsInterface();
+    view->rootContext()->setContextProperty("NewsInterface", newsInterface);
+
+    Helper *helper = new Helper();
+    view->rootContext()->setContextProperty("Helper", helper);
+
+    Sailfish::setView(view.data(), "main.qml");
+    Sailfish::showView(view.data());
+
+    Sailfish::showView(view.data());
+
+    return app->exec();
 #else
     NewsInterface *newsInterface = new NewsInterface();
     viewer->rootContext()->setContextProperty("NewsInterface", newsInterface);

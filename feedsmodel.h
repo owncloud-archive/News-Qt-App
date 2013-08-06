@@ -21,13 +21,14 @@ public:
     
     virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
     virtual int rowCount(const QModelIndex& parent = QModelIndex()) const;
+    virtual QHash<int, QByteArray> roleNames() const;
 
     void parseFeeds(const QByteArray& json);
     void setDatabase(QSqlDatabase *db);
     QList<int> feedIds();
 
 private:
-    QHash<int, QByteArray> roleNames() const;
+
 
     QList<QVariantMap> m_feeds;
 
