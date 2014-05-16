@@ -129,7 +129,10 @@ void NewsInterface::getFeeds()
 
         qDebug() << url;
 
-        QNetworkReply *reply = m_networkManager->get(QNetworkRequest(url));
+        QNetworkRequest r(url);
+        addAuthHeader(&r);
+
+        QNetworkReply *reply = m_networkManager->get(r);
         connect(reply, SIGNAL(sslErrors(QList<QSslError>)), reply, SLOT(ignoreSslErrors()));
     }
 }
@@ -202,6 +205,7 @@ bool NewsInterface::isBusy()
 
 void NewsInterface::viewItems(int feedId)
 {
+    qDebug() << "Viewing feed" << feedId;
     m_itemsModel->setFeed(feedId);
 }
 
@@ -235,4 +239,14 @@ void NewsInterface::setItemStarred(int feedId, const QString& itemGUIDHash, bool
     qDebug() << url;
 
     m_networkManager->put(QNetworkRequest(url), "");
+}
+
+void NewsInterface::addAuthHeader(QNetworkRequest *r)
+{
+    if (r) {
+        QString concatenated = m_username + ":" + m_password;
+        QByteArray data = concatenated.toLocal8Bit().toBase64();
+        QString headerData = "Basic " + data;
+        r->setRawHeader("Authorization", headerData.toLocal8Bit());
+    }
 }

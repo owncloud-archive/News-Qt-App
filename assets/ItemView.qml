@@ -218,7 +218,7 @@ Page {
                 id: lblBody
                 multiline: true
 
-                text: "<html>" + strip_tags(body, "<a><b><p><strong><em><i>") + "</html>"
+                text: "<html>" + strip_tags(body, "<a><b><p><strong><em><i><br>") + "</html>"
 
                 textStyle {
                     base: SystemDefaults.TextStyles.BodyText
@@ -232,6 +232,10 @@ Page {
                     return input.replace(commentsAndPhpTags, '').replace(tags, function ($0, $1) {
                         return allowed.indexOf('<' + $1.toLowerCase() + '>') > -1 ? $0 : '';
                     });
+                }
+
+                onTextChanged: {
+                    console.log(lblBody.text);
                 }
 
 

@@ -1,5 +1,5 @@
 TEMPLATE = app
-VERSION = 0.2
+VERSION = 0.3
 
 android {
     include(qmlapplicationviewer/qmlapplicationviewer.pri)
@@ -11,6 +11,7 @@ android {
 #need something better here to detect sailfish
 !android{
 !blackberry{
+    TARGET = newsFish
     message(SailfishOS build)
 
     DEFINES += MER_EDITION_SAILFISH
@@ -24,11 +25,30 @@ android {
     desktop.files = newsFish.desktop
 
     OTHER_FILES = \
-        rpm/ownCloudNews.yaml
+        rpm/ownCloudNews.yaml \
+        newsFish.desktop
 
     QT += sql
+
+    CONFIG += sailfishapp
+
 }
 }
+
+include(qmlapplicationviewer/qmlapplicationviewer.pri)
+QT += sql declarative network xml
+    RESOURCES += \
+    assets.qrc
+
+    OTHER_FILES += assets/simple/PGZButton.qml \
+    assets/simple/main.qml \
+    assets/simple/Intro.qml \
+    assets/simple/Feeds.qml \
+    assets/simple/PGZInput.qml \
+    assets/simple/PGZBusy.qml \
+    assets/simple/Items.qml \
+    assets/simple/ItemView.qml \
+    rpm/ownCloudNews.yaml
 
 blackberry{
     LIBS += -lbbdata -lbb -lbbcascades

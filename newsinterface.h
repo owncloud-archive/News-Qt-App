@@ -10,6 +10,7 @@
 class QNetworkAccessManager;
 class QNetworkReply;
 class QAuthenticator;
+class QNetworkRequest;
 
 class NewsInterface : public QObject
 {
@@ -59,6 +60,7 @@ private:
     void getFeeds();
     void getItems(int feedId);
     void syncNextFeed();
+    void addAuthHeader(QNetworkRequest *r);
 
 private slots:
     void slotAuthenticationRequired ( QNetworkReply * reply, QAuthenticator * authenticator );

@@ -107,6 +107,7 @@ void ItemsModel::setDatabase(QSqlDatabase *db)
 void ItemsModel::setFeed(int feedId)
 {
     if (m_db->isOpen()) {
+        qDebug() << "Querying the database";
         QSqlQuery qry;
         qry.prepare("SELECT id, feedid, title, guid, guidhash, body, link, author, pubdate, unread, starred FROM items WHERE feedid = :fid ORDER BY pubdate DESC");
         qry.bindValue(":fid", feedId);
@@ -118,23 +119,20 @@ void ItemsModel::setFeed(int feedId)
             beginResetModel();
             m_items.clear();
 
-            QTextDocument txt;
-
             while (qry.next()) {
                 QVariantMap item;
                 item["id"] = qry.value(0).toInt();
                 item["feedid"] = qry.value(1).toInt();
 
-                txt.setHtml(qry.value(2).toString());
-                item["title"] = txt.toPlainText().trimmed();
+                item["title"] = qry.value(2).toString().remove(QRegExp("<[^>]*>"));
 
                 item["guid"] = qry.value(3).toString();
                 item["guidhash"] = qry.value(4).toString();
 
-                txt.setHtml(qry.value(5).toString());
-                item["body"] = txt.toPlainText().trimmed();
+                item["body"] = qry.value(5).toString().remove(QRegExp("<[^>]*>"));
 
-                item["bodyhtml"] = qry.value(5).toString();
+
+                item["bodyhtml"] = qry.value(5).toString().remove("target=\"_blank\"");
                 item["link"] = qry.value(6).toString();
                 item["author"] = qry.value(7).toString();
                 item["pubdate"] = QDateTime::fromTime_t(qry.value(8).toUInt());
@@ -147,6 +145,7 @@ void ItemsModel::setFeed(int feedId)
             endResetModel();
         }
     }
+    qDebug() << "Finished querying data";
 }
 
 void ItemsModel::recreateTable()

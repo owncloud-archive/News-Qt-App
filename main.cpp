@@ -29,6 +29,7 @@ Q_DECL_EXPORT int main(int argc, char **argv)
 #ifdef Q_OS_BLACKBERRY
     bb::cascades::Application app(argc, argv);
 #elif defined(MER_EDITION_SAILFISH)
+    qDebug() << "Starting sailfish application";
     QScopedPointer<QGuiApplication> app(Sailfish::createApplication(argc, argv));
     QScopedPointer<QQuickView> view(Sailfish::createView());
 #else
@@ -45,6 +46,9 @@ Q_DECL_EXPORT int main(int argc, char **argv)
     qmlRegisterType<QAbstractItemModel>();
     qmlRegisterType<AbstractItemModel>("com.kdab.components", 1, 0, "AbstractItemModel");
 #endif
+
+    qDebug() << "Registering models";
+
     qmlRegisterType<FeedsModel>("uk.co.piggz", 1, 0, "FeedsModel");
     qmlRegisterType<ItemsModel>("uk.co.piggz", 1, 0, "ItemsModel");
 
@@ -52,6 +56,8 @@ Q_DECL_EXPORT int main(int argc, char **argv)
     new ownCloudNews(&app);
     return bb::cascades::Application::exec();
 #elif defined(MER_EDITION_SAILFISH)
+
+    qDebug() << "Creating interface";
     NewsInterface *newsInterface = new NewsInterface();
     view->rootContext()->setContextProperty("NewsInterface", newsInterface);
 
@@ -59,8 +65,6 @@ Q_DECL_EXPORT int main(int argc, char **argv)
     view->rootContext()->setContextProperty("Helper", helper);
 
     Sailfish::setView(view.data(), "main.qml");
-    Sailfish::showView(view.data());
-
     Sailfish::showView(view.data());
 
     return app->exec();
